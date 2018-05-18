@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="./css/main.css">
+    <title>BIT Festival</title>
+</head>
+
+<body>
+    <h1>Movie List</h1>
+    <form>
+        <fieldset class="cf">
+            <legend>Movie</legend>
+            <label for="title">Title</label>
+            <input type="text" id="title" name="title" placeholder="Title">
+            <label for="length">Length(min)</label>
+            <input type="number" id="length" name="length" placeholder="Length">
+            <select name="genre" id="genre">
+                <option value="">-</option>
+                <option value="action">Action</option>
+                <option value="thriller">Thriller</option>
+                <option value="comedy">Comedy</option>
+                <option value="drama">Drama</option>
+                <option value="horror">Horror</option>
+            </select>
+            <div class="alert-msg"></div>
+            <input type="button" id="button" value="Create movie" onclick="createMovie()">
+            <div class="movie-list"></div>
+            <ul></ul>
+            <div class="total-length"></div>
+        </fieldset>
+
+        <fieldset>
+            <legend>Program</legend>
+            <label for="date">Date:</label>
+            <input type="date" id="date">
+            <input type="button" id="button-program" value="Create Program" onclick="createProgram()">
+            <div id="program-info">
+                <ul>
+                </ul>
+            </div>
+
+            <hr>
+
+            <label for="choose-movie">Movie</label>
+            <select id="choose-movie"></select>
+
+            <label for="choose-program"></label>
+            <select id="choose-program"></select>
+            <input type="button" id="add-movie-button" value="Add movie to program">
+
+            <div id="final"></div>
+            <ul></ul>
+        </fieldset>
+
+    </form>
+    <script src="./js/entities.js"></script>
+</body>
+
+</html>

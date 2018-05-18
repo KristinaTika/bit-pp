@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Movie festival</title>
+    <link rel="stylesheet" href="./css/main.css">
+</head>
+
+<body>
+    <form action="">
+        <p>Please fill in the form</p>
+        <p>Movie</p>
+        <fieldset class="error">
+            <label class="label">Title</label>
+            <input type="text" placeholder="Title" class="input-title">
+            <label class="label">Length (min)</label>
+            <input type="text" placeholder="Length" class="input-length">
+
+            <select class="drop-down">
+                <option value="">-</option>
+                <option value="action" class="action">Action</option>
+                <option value="drama" class="drama">Drama</option>
+                <option value="comedy" class="comedy">Comedy</option>
+                <option value="thriller" class="thriller">Thriller</option>
+                <option value="adventure" class="adventure">Adventure</option>
+            </select>
+            <input type="button" value="Create movie" class="add-movie-button" onclick="AddMovie()">
+
+            <div class="movie-list-items"></div>
+            <div class="all-movies-length"></div>
+        </fieldset>
+        <p class="label-program">Program</p>
+        <fieldset>
+            <label class="date">Date</label>
+            <input type="date" class="date-input">
+            <input type="button" value="Create program" class="add-program-button" onclick="CreateProgram()">
+        </fieldset>
+    </form>
+
+    <script src="./js/entities.js"></script>
+    <script src="./js/form.js"></script>
+</body>
+
+</html>
