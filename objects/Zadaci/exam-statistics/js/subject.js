@@ -1,15 +1,10 @@
+"use strict";
 
+function Subject(subject) {
 
- function Subject (subject){
-
-    this.subjectName = subject;
+    this.subject = subject;
 }
+Subject.prototype.getSubjectName = function () {
 
-Subject.prototype.getSubjectName = function (){
-
-    return this.subjectName;
+    return this.subject;
 }
-
-var a = new Subject ("olovka");
-
-console.log(a.getSubjectName());
