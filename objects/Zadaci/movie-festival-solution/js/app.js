@@ -1,64 +1,60 @@
-var movies = [];
-var festival = new Festival();
+const movies = [];
+let festival = new Festival();
 
-// Define actions
-document.querySelector(".create-movie").addEventListener("click", function () {
-    createMovie()
+const createMovie1 = $(".create-movie");
+$(createMovie1).on("click", function () {
+    createMovie1()
 });
 
-document.querySelector(".create-program").addEventListener("click", function () {
-    createProgram();
+const createProgram1 = $(".create-program");
+$(createProgram1).to("click", function () {
+    createProgram1();
 });
-
-document.querySelector(".add-movie").addEventListener("click", function () {
+const addMovie = $(".add-movie");
+$(addMovie).to("click", function () {
     addMovieToProgram();
 });
 
-// Functions that to the actual work
 function createMovie() {
-    var titleElement = document.querySelector('.movie-title');
-    var lengthElement = document.querySelector('.movie-length');
-    var genreSelectElement = document.querySelector('.genre-select');
-    var genreOptionElement = genreSelectElement.options[genreSelectElement.selectedIndex]
-    var errorElement = document.querySelector('.movie-error');
-    var moviesElement = document.querySelector('.movie-list');
-    var moviesSelectElement = document.querySelector('.movie-select');
+    const titleElement = $('.movie-title');
+   const lengthElement = $('.movie-length');
+    const genreSelectElement = $('.genre-select');
+    let genreOptionElement = genreSelectElement.options[genreSelectElement.selectedIndex]
+    const errorElement = $('.movie-error');
+    const moviesElement = $('.movie-list');
+    const moviesSelectElement = $('.movie-select');
 
-    var title = titleElement.value.trim();
-    var length = parseInt(lengthElement.value.trim());
-    var genre = genreOptionElement.value.trim();
+    let title = titleElement.value.trim();
+    let length = parseInt(lengthElement.value.trim());
+    const genre = genreOptionElement.value.trim();
 
-    var isValid = title && length && genre;
+    const isValid = title && length && genre;
 
-    // Validate if all three fields are valid to continue
+   
     if (!isValid) {
-        // Set error text to text context of error element
+       
         errorElement.textContent = "All fields are required";
 
-        // Exit if error happened
         return;
     }
-
-    // Create objects using constructors
-    var genreObj = new Genre(genre);
-    var movie = new Movie(title, genreObj, length);
+    
+    const genreObj = new Genre(genre);
+    const movie = new Movie(title, genreObj, length);
 
     if (movies.hasElement(movie)) {
         errorElement.textContent = "Movie already exists in a movie list!";
         return;
     }
 
-    // Reset error just in case 
     errorElement.textContent = "";
 
-    // Add movie to movies list
     movies.push(movie);
 
-    var movieListHTML = "<ul>";
-    var moviesSelectOptionsHTML = '<option value="none">-</option>'
+    let movieListHTML = "<ul>";
+    let moviesSelectOptionsHTML = '<option value="none">-</option>'
 
-    for (var i = 0; i < movies.length; i++) {
-        var movie = movies[i];
+    for (let i = 0; i < movies.length; i++) {
+        let movie = movies[i];
         movieListHTML += "<li>" + movie.getData() + "</li>"
         moviesSelectOptionsHTML += '<option value="' + i + '">' + movie.title + '</option>'
     }
@@ -74,18 +70,18 @@ function createMovie() {
 }
 
 function createProgram() {
-    var dateElement = document.querySelector('.program-date');
-    var errorElement = document.querySelector('.program-error');
-    var programDate = dateElement.value;
+    const dateElement = $('.program-date');
+    const errorElement = $('.program-error');
+    const programDate = dateElement.value;
 
     if (!programDate) {
-        errorElement.textContent = "Please select date"
+        errorElement.textContent = "Please select date";
         return;
     }
 
-    errorElement.textContent = ""
+    errorElement.textContent = "";
 
-    var program = new Program(programDate);
+    const program = new Program(programDate);
 
     if (festival.listOfPrograms.hasElement(program)) {
         errorElement.textContent = "Program for date already exists!";
@@ -102,16 +98,16 @@ function createProgram() {
 }
 
 function addMovieToProgram() {
-    var movieSelectElement = document.querySelector('.movie-select');
-    var movieOptionElement = movieSelectElement.options[movieSelectElement.selectedIndex];
+    const movieSelectElement = $('.movie-select');
+    let movieOptionElement = movieSelectElement.options[movieSelectElement.selectedIndex];
 
-    var programSelectElement = document.querySelector('.program-select');
-    var programOptionElement = programSelectElement.options[programSelectElement.selectedIndex];
+    let programSelectElement = $('.program-select');
+    let programOptionElement = programSelectElement.options[programSelectElement.selectedIndex];
 
-    var errorElement = document.querySelector('.assign-error');    
+    const errorElement = $('.assign-error');    
 
-    var movieIndex = movieOptionElement.value;
-    var programIndex = programOptionElement.value;
+    const movieIndex = movieOptionElement.value;
+    const programIndex = programOptionElement.value;
 
     if (!movieIndex && !programIndex) {
         errorElement.textContent = "Select program and movie";
@@ -120,29 +116,28 @@ function addMovieToProgram() {
 
     errorElement.textContent = "";
 
-    var selectedMovie = movies[movieIndex];
-    var selectedProgram = festival.listOfPrograms[programIndex];
+    const selectedMovie = movies[movieIndex];
+    const selectedProgram = festival.listOfPrograms[programIndex];
 
     selectedProgram.addMovie(selectedMovie);
 
     refreshMoviesAndProgramList();
 
-    // Reset selectors to default position 
+  
     movieSelectElement.selectedIndex = 0;
     programSelectElement.selectedIndex = 0;
 }
 
-
 function refreshMoviesAndProgramList() {
-    var programListElement = document.querySelector('.program-list');
-    var programSelectElement = document.querySelector('.program-select');
+    const programListElement = $('.program-list');
+    const programSelectElement = $('.program-select');
 
-    var programListHTML = "<ul>"
-    var programSelectOptionsHTML = '<option value="">-</option>'
+    const programListHTML = "<ul>"
+    const programSelectOptionsHTML = '<option value="">-</option>'
 
-    var programList = festival.listOfPrograms;
-    for (var i = 0; i < programList.length; i++) {
-        var program = programList[i];
+    const programList = festival.listOfPrograms;
+    for (let i = 0; i < programList.length; i++) {
+        let program = programList[i];
         programListHTML += "<li>" + program.getData() + "</li>";
         programSelectOptionsHTML += '<option value="' + i + '">' + program.getData() + '</option>'
     }

@@ -1,9 +1,9 @@
 Array.prototype.hasElement = function (arrElement) {
-    var str1 = JSON.stringify(arrElement);
+    let str1 = JSON.stringify(arrElement);
 
-    for (var i = 0; i < this.length; i++) {
-        var element = this[i];
-        var str2 = JSON.stringify(element);
+    for (let i = 0; i < this.length; i++) {
+        let element = this[i];
+        let str2 = JSON.stringify(element);
         if (str1 === str2) {
             return true;
         }
