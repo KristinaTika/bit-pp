@@ -4,7 +4,7 @@ const uiModule = (() => {
         const row = $(".row");
         for (let i = 0; i < data.length; i++) {
             const showCard = $(`
-        <a href="show-info.html" data-id="${data[i].id}" class="landing-page-a"
+        <a href="show-info.html" data-id="${data[i].id}" class=" col-4 landing-page-a"
             <div class="col-4">
                 <div class="item">
                     <img src=${data[i].image}>
@@ -26,24 +26,23 @@ const uiModule = (() => {
 
     const renderSingleShow = (data) => {
 
-        //kreiramo h1 gdje cemo smestiti naslov serije
         const titleField = $(".title");
         const title = $(`<h1 id="show-title">${data.name}</h1>`);
         titleField.append(title);
 
         const imgField = $(".img");
-        const img = $(`<img src="${data.image}" alt="${data.name} image" class="info-img">`);
+        const img = $(`<img src="${data.image}" alt="${data.name} image" class=" col-12 info-img">`);
         imgField.append(img);
 
         const seasonsList = $(".seasons-list");
         for (let i = 0; i < data.seasonsList.length; i++) {
-            let liSeasonsItem = $(`<li>${data.seasonsList[i].premiereDate} - ${data.seasonsList[i].endDate}</li>`);
+            let liSeasonsItem = $(`<li class="col-6">${data.seasonsList[i].premiereDate} - ${data.seasonsList[i].endDate}</li>`);
             seasonsList.append(liSeasonsItem);
         }
 
         const castList = $(".cast-list");
         for (let i = 0; i < data.castList.length; i++) {
-            let liCastItem = $(`<li>${data.castList[i]}</li>`);
+            let liCastItem = $(`<li class="col-4">${data.castList[i]}</li>`);
             castList.append(liCastItem);
         }
 

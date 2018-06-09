@@ -7,14 +7,6 @@
     margin: 20px 0px; }
   .main img {
     width: 100%; }
-  .main .footer {
-    padding: 15px;
-    width: 100%;
-    position: absolute;
-    bottom: 0;
-    background-color: #212529;
-    color: white;
-    text-align: center; }
   .main .info-img {
     margin-bottom: 30px; }
 
@@ -29,5 +21,16 @@ header .search-list {
     text-decoration: none;
     color: black;
     padding: 5px; }
+
+footer {
+  margin-top: 30px; }
+  footer .footer {
+    padding: 15px;
+    width: 100%;
+    position: absolute;
+    bottom: 0px;
+    background-color: #212529;
+    color: white;
+    text-align: center; }
 
 /*# sourceMappingURL=style.css.map */
