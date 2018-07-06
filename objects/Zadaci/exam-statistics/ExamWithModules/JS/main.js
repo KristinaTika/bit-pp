@@ -11,6 +11,7 @@ var mainModule = (function(ui, data) {
     function addStudent(){
         var formData = ui.collectFormData();
         var createdExam = data.createExam(formData);
+        var updateList = ui.updateList(createdExam);
         console.log(createdExam);
     }
     

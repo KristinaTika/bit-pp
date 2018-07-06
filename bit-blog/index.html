@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Bit Blog</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+
+<body>
+
+    <header>
+        <ul>
+            <li class="blog">N &#38; K BLOG</li>
+            <li><a href="#">Home</a></li>
+            <li><a href="authors.html">Authors</a></li>
+            <li><a href="about.html">About</a></li>
+        </ul>
+    </header>
+
+    <div class="container">
+        <main>
+            <h2>POSTS</h2>
+            <ul class="post-list">
+
+            </ul>
+        </main>
+        <ul class="single-post"></ul>
+    </div>
+
+    <footer>
+        Copyright &#169; N &#38; K 2018
+    </footer>
+
+
+    <script type="module">
+      import {initHomepage, initSinglePostPage} from './js/main.js'; 
+        initHomepage(); 
+        initSinglePostPage()
+    </script>
+</body>
+
+</html>

@@ -1,4 +1,5 @@
 const dataModule = (() => {
+
     class Show {
         constructor(id, name, image) {
             this.id = id;
@@ -7,26 +8,22 @@ const dataModule = (() => {
         }
     }
 
-
     class SingleShow extends Show {
         constructor(id, name, image, castList, seasonsList, summary) {
             super(id, name, image)
             this.castList = castList;
             this.seasonsList = seasonsList;
             this.summary = summary;
-
         }
     }
-
 
     const fetchShows = (successHandler, errorHandler) => {
         const request = $.ajax({
             url: `http://api.tvmaze.com/shows`,
             method: "GET"
         });
-
         request.done((response) => {
-            const showList = []
+            const showList = [];
 
             for (let i = 0; i < 50; i++) {
                 const id = response[i].id;
@@ -38,9 +35,8 @@ const dataModule = (() => {
 
             successHandler(showList);
         });
-
         request.fail((jqXHR, textStatus) => {
-            errorHandler(textStatus)
+            errorHandler(textStatus);
         });
     }
 
@@ -90,24 +86,15 @@ const dataModule = (() => {
         });
         request.done((response) => {
             const suggestedShows = [];
-            if (response.length <= 10) {
-                for (let i = 0; i < response.length; i++) {
-                    const showId = response[i].show.id;
-                    const showName = response[i].show.name;
-                    let showImage = "";
-                    const suggestedSingleShow = new Show(showId, showName, showImage);
-                    suggestedShows.push(suggestedSingleShow);
-                }
-            } else {
-                for (let i = 0; i < response.length; i++) {
-                    const showId = response[i].show.id;
-                    const showName = response[i].show.name;
-                    let showImage = "";
-                    const suggestedSingleShow = new Show(showId, showName, showImage);
-                    suggestedShows.push(suggestedSingleShow);
-                }
 
+            for (let i = 0; i < response.length; i++) {
+                const showId = response[i].show.id;
+                const showName = response[i].show.name;
+                let showImage = "";
+                const suggestedSingleShow = new Show(showId, showName, showImage);
+                suggestedShows.push(suggestedSingleShow);
             }
+
             successHandler(suggestedShows);
         });
 
@@ -121,6 +108,5 @@ const dataModule = (() => {
         fetchShows,
         fetchSingleShow,
         searchSuggestions
-
     }
 })();

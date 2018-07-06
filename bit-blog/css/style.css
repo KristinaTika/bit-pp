@@ -1,0 +1,16 @@
+
+header ul li {
+    display: inline;
+}
+
+.blog {
+    margin-right: 500px;
+}
+
+footer {
+    text-align: center;
+}
+
+h2 {
+    text-align: center;
+}

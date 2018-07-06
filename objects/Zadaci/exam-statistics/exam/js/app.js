@@ -66,6 +66,7 @@ function createExam() {
 function update() {
     updateList(examList);
     updateStatistics(passedList, failedList, examList);
+
 }
 
 function getCurrentMonth() {
@@ -83,7 +84,21 @@ function updateCurrentMonth() {
 
 function resetList(li) {
     var ul = document.querySelector("#passed-student-list");
-    ul.removeChild(li);
+    var ulFailed = document.querySelector("#failed-student-list");
+    if (ul) {
+        ul.removeChild(li);
+    }
+}
+
+function resetListFailed(li) {
+    var ulFailed = document.querySelector("#failed-student-list");
+    ulFailed.removeChild(li);
+}
+
+
+
+function refreshStatistics(passedList, failedList, examList) {
+    passedList.length = passedList.length-1;
 }
 
 var xButton = document.querySelector(".btn-x");
@@ -102,8 +117,18 @@ addButton.addEventListener("click", function () {
 var studentsLists = document.querySelector(".students-lists");
 
 studentsLists.addEventListener("click", function (event) {
-    if (event.target.className === "btn-x") {
+
+    if (event.target.classList.value === 'passed-span btn-x') {
         var liElement = event.target.parentElement.parentElement;
         resetList(liElement);
+        refreshStatistics(passedList, failedList, examList);
     }
+    if (event.target.classList.value === 'failed-span btn-x') {
+        var liElement = event.target.parentElement.parentElement;
+        resetListFailed(liElement);
+        refreshStatistics(passedList, failedList, examList);
+    }
+
 })
+
+

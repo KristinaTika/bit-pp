@@ -13,7 +13,7 @@ function validateData(name, surname, grade) {
 
     if (surname === "InsertSurname") {
         var surnameValidation = document.querySelector(".nameValidation");
-        surnameValidation.textContent = "You must insert both name and surname";
+        surnameValidation.textContent = "You must insert both name and surname!";
         return;
     }
 
@@ -25,7 +25,7 @@ function validateData(name, surname, grade) {
 
     if (grade < 5 || grade > 10) {
         var validateGrade = document.querySelector(".gradeValidation");
-        validateGrade.textContent = "A grade should be valid numerical value from 5 to 10!"
+        validateGrade.textContent = "A grade should be valid numerical value from 5 to 10!";
         return;
     }
 
@@ -34,6 +34,7 @@ function validateData(name, surname, grade) {
 function updateList(examList) {
     var passedList = document.querySelector("#passed-student-list");
     var failedList = document.querySelector("#failed-student-list");
+
     var listItem = document.createElement("li");
     listItem.classList.add("cf");
     var spanLi = document.createElement("span");
@@ -87,3 +88,4 @@ function updateStatistics(passedList, failedList, examList) {
     var failedPercent = document.querySelector("#failed-percent");
     failedPercent.textContent = Math.round((100 * failedList.length) / examList.length) + "%";
 }
+

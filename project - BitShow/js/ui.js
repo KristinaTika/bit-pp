@@ -13,7 +13,6 @@ const uiModule = (() => {
             </div>
         </a>`);
             row.append(showCard);
-
         }
     }
 
@@ -22,7 +21,6 @@ const uiModule = (() => {
         const errorField = $(`<div class="col-8 offset-2">${status}</div>`)
         row.append(errorField);
     }
-
 
     const renderSingleShow = (data) => {
 
@@ -49,11 +47,9 @@ const uiModule = (() => {
         const showDetailsField = $(".show-details");
         const showDetails = $(`<h3>Show Details</h3> <p>${data.summary}</p>`);
         showDetailsField.append(showDetails);
-
-        
     }
 
-    const renderDropdown = (data) => {
+    const renderSearchSuggestions = (data) => {
         let dropdown = $(".search-list");
         dropdown.empty();
         data.forEach((show) => {
@@ -65,7 +61,7 @@ const uiModule = (() => {
         renderShows,
         renderError,
         renderSingleShow,
-        renderDropdown
+        renderSearchSuggestions
 
     }
 })()

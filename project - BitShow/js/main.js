@@ -1,10 +1,9 @@
 const mainModule = ((ui, data) => {
-    const initHomepage = () => {
 
+    const initHomepage = () => {
         data.fetchShows((showData) => {
             ui.renderShows(showData);
         },
-
             function (error) {
                 ui.renderError(error);
             });
@@ -19,20 +18,15 @@ const mainModule = ((ui, data) => {
         $(".form-control").on("keyup", function (event) {
             let input = this.value;
             data.searchSuggestions(input, function (data) {
-                ui.renderDropdown(data);
+                ui.renderSearchSuggestions(data);
             });
         });
-
-
-
     }
 
     const initSinglePage = () => {
         const idInLocalStorage = localStorage.getItem("id");
-
         data.fetchSingleShow(idInLocalStorage, function (showData) {
             ui.renderSingleShow(showData);
-
         }, function (error) {
             ui.renderError(error);
         });
@@ -41,18 +35,16 @@ const mainModule = ((ui, data) => {
             event.preventDefault()
             const id = this.getAttribute("data-id");
             localStorage.setItem("id", id);
-            location.assign("show-info.html");
+            location.assign("index.html");
         });
 
         $(".form-control").on("keyup", function(event){
             let input = this.value;
             data.searchSuggestions(input, function(data){
-                ui.renderDropdown(data)
+                ui.renderSearchSuggestions(data)
             });
         });
     }
-
-
 
     return {
         initHomepage,
