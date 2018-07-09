@@ -33,14 +33,14 @@ const singlePostHandler = (event) => {
     if (event.target.className == "proradi") {
         const postId = event.target.getAttribute("data-id");
         // location.href = "single-post.html";
-        // console.log(postId);
-        // data.getSinglePost(postId)
-        //     .then((response) => {
-        //         ui.renderSinglePost(response);
-        //     })
-        // }
+        console.log(postId);
+        data.getSinglePost(postId)
+            .then((response) => {
+                ui.renderSinglePost(response);
+            })
+        }
         return postId;
-    }
+    
 }
 
 export const initSinglePost = () => {
