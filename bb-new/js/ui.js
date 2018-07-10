@@ -26,10 +26,10 @@ export const renderPosts = (posts) => {
         postLi.innerHTML = `
         <li id="post-li">
             <a href="#" data-id="${post.id}" data-userId="${post.userId}">
-                <h3 data-id="${post.id}" class="proradi" >${post.title}</h3>
+                <h3 data-id="${post.id}" class="single-post" >${post.title}</h3>
             </a>
             <p>${post.body}</p>
-            <hr>
+            <hr class="border-line">
          </li>`;
 
         postList.appendChild(postLi);
@@ -38,42 +38,44 @@ export const renderPosts = (posts) => {
 
 export const renderSinglePost = (post, author) => {
 
-    const mainContainer = document.querySelector(".container");
-    // mainContainer.classList.add("hide");
+
+    container.textContent = ("");
+
 
     const singlePostDiv = document.createElement("div");
     singlePostDiv.innerHTML = `
     <h1>${post.title}</h1>
     <h4>Author: 
-        <a href="#" data-id="${post.userId}"> ${author.name}
+        <a href="#" data-id="${post.userId}" class="author-name" > ${author.name}
         </a> 
     </h4>
     <p>${post.body}</p>
-    <hr />
-    <h5> More posts from the same author: </h5> 
+    <hr class="border-line" />
+    <h5> All posts from the same author: </h5> 
     `;
 
-    mainContainer.appendChild(singlePostDiv);
+    container.appendChild(singlePostDiv);
 }
 
-export const renderMorePostsFromASingleAuthor = (postsFromAuthor, post) => {
+export const renderMorePostsFromASingleAuthor = (posts) => {
 
     const list = document.createElement("ul");
-    for (let i = 0; i < postsFromAuthor.length; i++) {
-        const listLi = `
-        <li>
-            <a href="#" data-id="${postsFromAuthor[i].id}>
-                ${postsFromAuthor[i].title.slice(0, 20)}"
-            </a>
-        </li>
-        `;
-        list.appendChild(listLi);
+    container.appendChild(list);
 
-        if (post.id === postsFromAuthor[i].id) {
-            listLi.classList.add("hide");
-        }
-        container.appendChild(list);
+
+    for (let i = 0; i < posts.length; i++) {
+
+        let listLi = document.createElement("li");
+        listLi.innerHTML = `
+        <li>
+            <a href="#" data-id="${posts[i].id}" class="more-posts" >
+                ${posts[i].title.slice(0, 20)}"
+            </a>
+        </li>`;
+        list.appendChild(listLi);
     }
+
+   
 }
 
 ////////////////////////////////////////////////////////////////////////////////////
@@ -86,7 +88,7 @@ export const renderMorePostsFromASingleAuthor = (postsFromAuthor, post) => {
 
 export const displayCreateNewPost = () => {
 
-    container.text("");
+    container.textContent = ("");
     const newPost = document.createElement("div");
     newPost.innerHTML = `
     <h1>NEW POST</h1>
@@ -95,19 +97,19 @@ export const displayCreateNewPost = () => {
             <div class="row">
                 <div class="col s6">
                     <label for="post-title">Post Title</label>
-                    <input type="text" id="post-title" data-length="100">
+                    <input type="text" id="post-title">
                 </div>
             </div>
             <div class="row">
                 <div class="col s12">
                     <label for="post-content">Post Content</label>
-                    <textarea id="post-content" data-length="1000"></textarea>
+                    <textarea id="post-content"></textarea>
                 </div>
             </div>
         </form>
     </div>
-    <input type="reset" id="cancel-new-post" value="Cancel" />
-    <input type="submit" id="create-new-post" value="Create" />
+    <input type="reset" class="cancel-new-post" value="Cancel" />
+    <input type="submit" class="create-post" value="Create" />
     `;
     container.appendChild(newPost);
 }
@@ -116,10 +118,15 @@ export const collectNewPostData = () => {
 
     const postTitleInput = document.querySelector("#post-title");
     const postContentInput = document.querySelector("#post-content");
+
+    const title = postTitleInput.value;
+    const content = postContentInput.value;
+   
     const postData = {
-        title: postTitleInput.value,
-        body: postContentInput.value
+        title: title,
+        body: content
     }
+   
     return postData;
 }
 
@@ -135,7 +142,7 @@ export const collectNewPostData = () => {
 
 export const renderAuthors = (authors) => {
 
-    // container.classList.add("hide");
+    container.textContent = ("");
 
     const authorTitle = document.createElement("h1");
     authorTitle.textContent = `Authors (${authors.length})`;
@@ -148,8 +155,8 @@ export const renderAuthors = (authors) => {
         let authorLi = document.createElement("li");
         authorLi.innerHTML = `
             <li>
-                <a href="single-author.html" id="author-title" data-id="${author.id}">
-                    <h3>${author.name}</h3>
+                <a href="single-author.html" data-id="${author.id}">
+                    <h3 class="author-title" data-id="${author.id}">${author.name}</h3>
                 </a>
                 <hr>
             </li>`;
@@ -159,40 +166,40 @@ export const renderAuthors = (authors) => {
 
 export const renderSingleAuthor = (author) => {
 
-    container.classList.add("hide");
+    container.textContent = ("");
 
     const singleAuthor = document.createElement("div");
     singleAuthor.innerHTML = `
-    <span id="all-authors"> All authors </span>
+    <span id="all-authors"><a href="#" class="back-to-authors"> &#8592; All authors </a></span>
     <h1>${author.name}</h1>
     <div class="row">
         <div class="col s6">
         <img src="http://via.placeholder.com/200x200" alt="">
         </div>
             <div class="col s6">
-                <p>username: ${author.username}</p>
-                <p>email: ${author.email}</p>
-                <p>phone: ${author.phone}</p>
+                <p><b>username:</b> ${author.username}</p>
+                <p><b>email:</b> ${author.email}</p>
+                <p><b>phone:</b> ${author.phone}</p>
             </div>
         </div>
-        <hr/>
+        <hr class="border-line"/>
         <div class="row">
             <div class="col s6">
                 <h3>Address</h3>
-                <p>street: ${author.address.street}</p>
-                <p>city: ${author.address.city}</p>
-                <p>zipcode: ${author.address.zipcode}</p>
+                <p><b>street:</b> ${author.address.street}</p>
+                <p><b>city:</b> ${author.address.city}</p>
+                <p><b>zipcode:</b> ${author.address.zipcode}</p>
             </div>
             <div class="col s6">
                 <iframe width="500" height="300" layout="responsive"src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2830.744977118772!2d20.455167015956487!3d44.806385679098696!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475a7aa9c08b61e5%3A0x3ee3e8a176a39372!2sNemanjina+4%2C+Beograd!5e0!3m2!1sen!2srs!4v1530877048117" frameborder="0" style="border:0" allowfullscreen></iframe>
             </div>
         </div>
-        <hr/>
+        <hr class="border-line" />
         <div class="row">
             <div class="col s6">
                 <h3>Company</h3>
-                <p>name: ${author.company.name}</p>
-                <p>slogan: ${author.company.catchPhrase}</p>
+                <p><b>name:</b> ${author.company.name}</p>
+                <p><b>slogan:</b> ${author.company.catchPhrase}</p>
         </div>
     </div>
     `;
@@ -221,9 +228,6 @@ export const renderAboutPage = () => {
 
             The emergence and growth of blogs in the late 1990s coincided with the advent of web publishing tools that facilitated the posting of content by non-technical users who did not have much experience with HTML or computer programming. Previously, a knowledge of such technologies as HTML and File Transfer Protocol had been required to publish content on the Web, and as such, early Web users tended to be hackers and computer enthusiasts. In the 2010s, the majority are interactive Web 2.0 websites, allowing visitors to leave online comments, and it is this interactivity that distinguishes them from other static websites. In that sense, blogging can be seen as a form of social networking service. Indeed, bloggers do not only produce content to post on their blogs, but also often build social relations with their readers and other bloggers. However, there are high-readership blogs which do not allow comments.
 
-            Many blogs provide commentary on a particular subject or topic, ranging from politics to sports. Others function as more personal online diaries, and others function more as online brand advertising of a particular individual or company. A typical blog combines text, digital images, and links to other blogs, web pages, and other media related to its topic. The ability of readers to leave publicly viewable comments, and interact with other commenters, is an important contribution to the popularity of many blogs. However, blog owners or authors often moderate and filter online comments to remove hate speech or other offensive content. Most blogs are primarily textual, although some focus on art (art blogs), photographs (photoblogs), videos (video blogs or "vlogs"), music (MP3 blogs), and audio (podcasts). In education, blogs can be used as instructional resources. These blogs are referred to as edublogs. Microblogging is another type of blogging, featuring very short posts.
-
-            On 16 February 2011, there were over 156 million public blogs in existence. On 20 February 2014, there were around 172 million Tumblrand 75.8 million WordPress blogs in existence worldwide. According to critics and other bloggers, Blogger is the most popular blogging service used today. However, Blogger does not offer public statistics. Technorati lists 1.3 million blogs as of February 22, 2014.[8]
         </p>
     </div>
     <div>
@@ -233,8 +237,9 @@ export const renderAboutPage = () => {
 
             The modern blog evolved from the online diary, where people would keep a running account of the events in their personal lives. Most such writers called themselves diarists, journalists, or journalers. Justin Hall, who began personal blogging in 1994 while a student at Swarthmore College, is generally recognized as one of the earlier bloggers, as is Jerry Pournelle. Dave Winer's Scripting News is also credited with being one of the older and longer running weblogs. The Australian Netguide magazine maintained the Daily Net News on their web site from 1996. Daily Net News ran links and daily reviews of new websites, mostly in Australia.
         
-            Another early blog was Wearable Wireless Webcam, an online shared diary of a person's personal life combining text, digital video, and digital pictures transmitted live from a wearable computer and EyeTap device to a web site in 1994. This practice of semi-automated blogging with live video together with text was referred to as sousveillance, and such journals were also used as evidence in legal matters. Early blogs were simply manually updated components of common Websites. However, the evolution of electronic and software tools to facilitate the production and maintenance of Web articles posted in reverse chronological order made the publishing process feasible to a much larger, less technical, population. Ultimately, this resulted in the distinct class of online publishing that produces blogs we recognize today. For instance, the use of some sort of browser-based software is now a typical aspect of "blogging". Blogs can be hosted by dedicated blog hosting services, or they can be run using blog software, or on regular web hosting services. Some early bloggers, such as The Misanthropic Bitch, who began in 1997, actually referred to their online presence as a zine, before the term blog entered common usage.
+            Another early blog was Wearable Wireless Webcam, an online shared diary of a person's personal life combining text, digital video, and digital pictures transmitted live from a wearable computer and EyeTap device to a web site in 1994. This practice of semi-automated blogging with live video together with text was referred to as sousveillance, and such journals were also used as evidence in legal matters. Early blogs were simply manually updated components of common Websites. However, the evolution of electronic and software tools to facilitate the production and maintenance of Web articles posted in reverse chronological order made the publishing process feasible to a much larger, less technical, population.
         </p>
     </div>
     `;
+    container.appendChild(about);
 }

@@ -20,7 +20,7 @@ export const getPosts = () => {
         })
 }
 
-export const getSinglePost = (id, fn) => {
+export const getSinglePost = (id) => {
 
     return postService.fetchSinglePost(id);
 
@@ -32,7 +32,7 @@ export const postNewPost = (data) => {
 }
 
 
-export const getMorePostsFromAuthor = (authorId, post, fn) => {
+export const getMorePostsFromAuthor = (authorId) => {
 
     return postService.fetchPostsFromASingleAuthor(authorId);
 }
@@ -68,7 +68,7 @@ export const getAuthors = () => {
         })
 }
 
-export const getSingleAuthor = (authorId, fn) => {
+export const getSingleAuthor = (authorId) => {
 
     return authorService.fetchSingleAuthor(authorId);
 }

@@ -12,7 +12,7 @@ class PostService {
         return get(`${singlePostEndpoint}${id}`)
     }
 
-    fetchPostsFromASingleAuthor(userId, post, fn) {
+    fetchPostsFromASingleAuthor(userId) {
         return get(`${postsFromASingleAuthorEndpoint}${userId}`)
     }
 

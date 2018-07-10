@@ -37,8 +37,13 @@ h1 {
 
 .hide {
     display: none;
+    /* visibility: hidden; */
 }
 
 .show {
     display: block;
+}
+
+.border-line {
+    border-bottom: 1px solid black;
 }
