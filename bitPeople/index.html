@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
+    <link rel="stylesheet" href="css/style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>Bit People</title>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <div class="nav-wrapper container">
+                <a href="#" class="brand-logo center">Bit Persons</a>
+                <ul id="nav-mobile" class="right hide-on-med-and-down">
+
+                    <li>
+                        <span class="about">About</span>
+                    </li>
+                    <li>
+                        <i class="material-icons refresh">refresh</i>
+                    </li>
+                    <li class="li-change-view">
+                        <span ><i class="material-icons set-view">view_module</i></span>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="root"></div>
+
+    <footer class="page-footer">
+        <div class="container center">
+            © 2018 Copyright Kristina Butkovic
+        </div>
+    </footer>
+
+    <script type="module">
+        import { init } from "./js/main.js";
+        init();
+    </script>
+</body>
+
+</html>
