@@ -8,6 +8,20 @@ const pinkColor = (user) => {
     }
 }
 
+const countMaleFemale = (users) => {
+    let males = 0;
+    let females = 0;
+    users.forEach((user) => {
+        if (user.gender === "female"){
+            females ++;
+        } else {
+            males ++
+        }
+    });
+
+    return `Male: ${males} Female: ${females}`;
+}
+
 export const renderUserList = (users) => {
 
     const searchBar = document.querySelector(".search-bar");
@@ -15,6 +29,14 @@ export const renderUserList = (users) => {
     searchBar.classList.add("class", "show");
 
     container.innerHTML= "";
+
+    const stats = document.createElement("div");
+    stats.innerHTML = `
+        <p class="center">
+            ${countMaleFemale(users)}
+        </p>
+    `;
+    container.appendChild(stats);
 
     const userList = document.createElement("ul");
     userList.setAttribute("class", "collection user-list");

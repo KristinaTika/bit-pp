@@ -90,18 +90,20 @@ const closeSearchHandler = (event) => {
 
     event.preventDefault();
     const view = document.querySelector(".set-view");
+    const noUser= document.querySelector(".no-user-message");
 
     if (event.target.textContent === "close" && view.textContent === "view_module") {
         uiList.clearSearchInput();
+        noUser.classList.add("class", "hide");
         renderLoader();
         loadUserList();
     } else {
         uiList.clearSearchInput();
+        noUser.classList.add("class", "hide");
         renderLoader();
         loadUserGrid();
     }
 }
-
 
 export const init = () => {
 

@@ -8,13 +8,35 @@ const pinkColor = (user) => {
     }
 }
 
+const countMaleFemale = (users) => {
+    let males = 0;
+    let females = 0;
+    users.forEach((user) => {
+        if (user.gender === "female") {
+            females++;
+        } else {
+            males++
+        }
+    });
+
+    return `Male: ${males} Female: ${females}`;
+}
+
 export const renderUserGrid = (users) => {
 
     const searchBar = document.querySelector(".search-bar");
     searchBar.classList.remove("class", "hide");
     searchBar.classList.add("class", "show");
 
-    container.innerHTML= "";
+    container.innerHTML = "";
+
+    const stats = document.createElement("div");
+    stats.innerHTML = `
+        <p class="center">
+            ${countMaleFemale(users)}
+        </p>
+    `;
+    container.appendChild(stats);
 
     const userGrid = document.createElement("div");
     userGrid.setAttribute("class", "card user-list");
@@ -28,9 +50,9 @@ export const renderUserGrid = (users) => {
     </div>
     `;
     userGrid.appendChild(rowLi);
-    
+
     users.forEach((user) => {
-        
+
         let userLi = document.createElement("div");
         userLi.setAttribute("class", "card-image li-grid");
         userLi.innerHTML = `

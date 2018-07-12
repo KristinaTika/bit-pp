@@ -22,12 +22,13 @@ export const renderLoader = () => {
     container.appendChild(loader);
 
     const searchBar = document.querySelector(".search-bar");
-    searchBar.classList.add("class", "hide")
+    searchBar.classList.add("class", "hide");
 }
 
 export const noUser = () => {
 
     const message = document.createElement("div");
+    message.classList.add("class", "no-user-message")
     message.innerHTML = `
         <img class="irc_mi" src="https://i.pinimg.com/736x/1d/b8/9e/1db89e01a6d7bb7d8834fe778fbc5c4b--charter-communications-sick-of-people.jpg" alt="We couldn't find any people matching your search" id="no-user-photo" />
         <p class="center"> Sorry, we couldn't find any people matching your search.</p>
