@@ -1,5 +1,14 @@
 const container = document.querySelector(".root");
 
+
+const pinkColor = (user) => {
+    if (user.gender === "female") {
+        return "card gender-color";
+    } else {
+        return "card";
+    }
+}
+
 export const renderUserGrid = (users) => {
 
     const userGrid = document.createElement("div");
@@ -20,7 +29,7 @@ export const renderUserGrid = (users) => {
         userLi.setAttribute("class", "card-image li-grid");
         userLi.innerHTML = `
             <div class="col s4">
-                <div class="card">
+                <div class="${pinkColor(user)}">
                     <div class="card-image">
                         <img src="${user.picture}" alt="user-img" />
                         <span class="card-title">${user.name}</span>

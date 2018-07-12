@@ -4,3 +4,4 @@ export const getUsers = () => {
 
     return userService.fetchUsers();
 }
+

@@ -11,7 +11,7 @@ class UserService {
         return userData.map((user) => {
           const userName = user.name.first;
           const userSurname = user.name.last;
-          const name = userName + userSurname;
+          const name = userName + " " + userSurname;
           const myUser = new User(name, user.email, user.dob.date, user.picture.large, user.gender);
           return myUser;
         });

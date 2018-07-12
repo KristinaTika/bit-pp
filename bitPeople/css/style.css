@@ -13,3 +13,19 @@ main {
 .refresh, .about {
   margin-right: 50px;
 }
+
+.footer {
+  padding-bottom: 20px;
+}
+
+.gender-color {
+  background-color: rgb(228, 236, 115);
+}
+
+.show {
+  display: initial;
+}
+
+.hide {
+  display: none;
+}

@@ -15,9 +15,8 @@
     <header>
         <nav>
             <div class="nav-wrapper container">
-                <a href="#" class="brand-logo center">Bit Persons</a>
-                <ul id="nav-mobile" class="right hide-on-med-and-down">
-
+                <span class="brand-logo center">Bit Persons</span>
+                <ul id="nav-mobile" class="right hide-on-med-and-down row">
                     <li>
                         <span class="about">About</span>
                     </li>
@@ -25,17 +24,35 @@
                         <i class="material-icons refresh">refresh</i>
                     </li>
                     <li class="li-change-view">
-                        <span ><i class="material-icons set-view">view_module</i></span>
+                        <span>
+                            <i class="material-icons set-view">view_module</i>
+                        </span>
                     </li>
                 </ul>
             </div>
         </nav>
     </header>
 
-    <div class="root"></div>
+    <main>
+        <nav>
+            <div class="nav-wrapper">
+                <form>
+                    <div class="input-field">
+                        <input id="search" type="search" required>
+                        <label class="label-icon" for="search">
+                            <i class="material-icons">search</i>
+                        </label>
+                        <i class="material-icons close">close</i>
+                    </div>
+                </form>
+            </div>
+        </nav>
+        <div class="root"></div>
+    </main>
+
 
     <footer class="page-footer">
-        <div class="container center">
+        <div class="container center footer">
             © 2018 Copyright Kristina Butkovic
         </div>
     </footer>
