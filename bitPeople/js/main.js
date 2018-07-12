@@ -1,8 +1,8 @@
 import * as data from "./data/data.js";
 import * as uiList from "./ui/uiList.js";
 import * as uiGrid from "./ui/uiGrid.js";
-import * as uiAbout from "./ui/uiAbout.js";
-
+import { renderAbout } from "./ui/uiAbout.js";
+import { renderLoader, noUser } from "./ui/uiLoader.js";
 
 const container = document.querySelector(".root");
 
@@ -25,6 +25,7 @@ const loadUserGrid = () => {
 
     data.getUsers()
         .then((users) => {
+            renderLoader();
             uiGrid.renderUserGrid(users);
         })
 }
@@ -34,11 +35,9 @@ const switchViewHandler = (event) => {
     event.preventDefault();
 
     if (event.target.textContent === "view_module") {
-        container.textContent = "";
         event.target.textContent = "view_list";
         loadUserGrid();
     } else if (event.target.textContent === "view_list") {
-        container.textContent = "";
         event.target.textContent = "view_module";
         loadUserList();
     }
@@ -49,10 +48,10 @@ const refreshHandler = (event) => {
     const view = document.querySelector(".set-view");
 
     if (event.target.textContent === "refresh" && view.textContent === "view_module") {
-        container.textContent = "";
+        renderLoader();
         loadUserList();
     } else if (event.target.textContent === "refresh" && view.textContent === "view_list") {
-        container.textContent = "";
+        renderLoader();
         loadUserGrid();
     }
 }
@@ -62,40 +61,51 @@ const aboutHandler = (event) => {
     event.preventDefault();
 
     if (event.target.className === "about") {
-        uiAbout.renderAbout();
+        renderAbout();
     }
 }
 
 const searchHandler = (event) => {
 
+    const view = document.querySelector(".set-view");
     let searchValue = uiList.collectSearchData();
-    console.log(searchValue);
-    
+
     let filterUsers = myUsers.filter((user) => {
         let userName = user.name.toLowerCase();
-        for (let i = 0; i < userName.length; i++) {
-
-            if (user.name == searchValue) {
-               uiList.renderSearchUsers(user);   
-            }
-        }
+        return userName.includes(searchValue);
     });
+
+    if (view.textContent === "view_module") {
+        renderLoader();
+        uiList.renderUserList(filterUsers);
+    }
+    else if (view.textContent === "view_list") {
+        renderLoader();
+        uiGrid.renderUserGrid(filterUsers);
+    }
+    noUser()
 }
 
 const closeSearchHandler = (event) => {
 
     event.preventDefault();
+    const view = document.querySelector(".set-view");
 
-    if (event.target.textContent === "close") {
-        container.textContent = "";
+    if (event.target.textContent === "close" && view.textContent === "view_module") {
         uiList.clearSearchInput();
+        renderLoader();
         loadUserList();
+    } else {
+        uiList.clearSearchInput();
+        renderLoader();
+        loadUserGrid();
     }
 }
 
 
 export const init = () => {
 
+    renderLoader();
     loadUserList();
 
     const body = document.querySelector("body");
@@ -112,4 +122,7 @@ export const init = () => {
 
     const close = document.querySelector(".close");
     close.addEventListener("click", closeSearchHandler);
+
+    const bitPeople = document.querySelector(".bit-people")
+    bitPeople.addEventListener("click", loadUserList)
 }

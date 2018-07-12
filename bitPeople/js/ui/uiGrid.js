@@ -1,6 +1,5 @@
 const container = document.querySelector(".root");
 
-
 const pinkColor = (user) => {
     if (user.gender === "female") {
         return "card gender-color";
@@ -11,9 +10,16 @@ const pinkColor = (user) => {
 
 export const renderUserGrid = (users) => {
 
+    const searchBar = document.querySelector(".search-bar");
+    searchBar.classList.remove("class", "hide");
+    searchBar.classList.add("class", "show");
+
+    container.innerHTML= "";
+
     const userGrid = document.createElement("div");
     userGrid.setAttribute("class", "card user-list");
     container.appendChild(userGrid);
+
     const rowLi = document.createElement("div");
     rowLi.innerHTML = `
     <div class="container">

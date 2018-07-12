@@ -8,7 +8,7 @@ class User {
         let date = new Date(dob).toDateString().split(" ");
         let newDate = `${date[1]} ${date[2]} ${date[3]}`;
         
-        this.name = name;
+        this.name= name;
         this.email = myEmail;
         this.dob = newDate;
         this.picture = picture;

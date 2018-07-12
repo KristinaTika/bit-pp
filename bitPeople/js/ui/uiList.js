@@ -1,6 +1,5 @@
 const container = document.querySelector(".root");
 
-
 const pinkColor = (user) => {
     if (user.gender === "female") {
         return "card gender-color";
@@ -10,6 +9,12 @@ const pinkColor = (user) => {
 }
 
 export const renderUserList = (users) => {
+
+    const searchBar = document.querySelector(".search-bar");
+    searchBar.classList.remove("class", "hide");
+    searchBar.classList.add("class", "show");
+
+    container.innerHTML= "";
 
     const userList = document.createElement("ul");
     userList.setAttribute("class", "collection user-list");
@@ -46,28 +51,8 @@ export const clearSearchInput = () => {
 
     const searchInput = document.querySelector("#search");
     searchInput.value = "";
-
 }
 
-export const renderSearchUsers = (user) => {
-
-    // container.textContent = "";
-
-    const searchedUser = document.createElement("div");
-    searchedUser.innerHTML = `
-        <li className="collection-item avatar">
-            <img src=${user.picture} alt="${user.name}" className="circle" />
-            <p>
-                <b> <i class="tiny material-icons">email</i>email: </b>${user.email}
-            <p>
-                <b> <i class="tiny material-icons">cake</i> </b>${user.dob}
-            </p>
-        </li>`
-        ;
-    container.textContent = "";
-    container.appendChild(searchedUser);
-
-}
 
 
 
