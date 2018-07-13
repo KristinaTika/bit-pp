@@ -35,3 +35,56 @@ export const noUser = () => {
     `;
     container.appendChild(message);
 }
+
+const getMilliseconds = () => {
+
+    let lastUpdate = localStorage.getItem("updateTime");
+    let nowTime = Date.now();
+    let differenceInTime = nowTime - lastUpdate;
+
+    let day, hour, minute, seconds;
+    seconds = Math.floor(differenceInTime / 1000);
+    minute = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+    hour = Math.floor(minute / 60);
+    minute = minute % 60;
+    day = Math.floor(hour / 24);
+    hour = hour % 24;
+
+    return {
+        day: day,
+        hour: hour,
+        minute: minute,
+        seconds: seconds
+    };
+}
+
+const countTime = () => {
+
+    const date = getMilliseconds();
+
+    if(date.day > 0) {
+        return `Last update: ${date.day} days ago`;
+    }
+    else if (date.hour > 0) {
+        if( date.hour == 1) {
+            return `Last update: over an hour ago`;
+        }
+        return `Last update: ${date.hour} hours ago`;
+    }
+    else if (date.minute > 0) {
+        if( date.minute == 1) {
+            return `Last update: 1 minute ago`;
+        }
+        return `Last update: ${date.minute} minutes ago`;
+    }
+    else if (date.seconds > 0) {
+        return `Last update: ${date.seconds} seconds ago`;
+    }
+}
+
+export const renderLastUpdate = () => {
+
+    const updateTime = document.querySelector(".last-update");
+    updateTime.innerHTML = ` ${countTime()}`;
+}

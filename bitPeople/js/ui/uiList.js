@@ -15,11 +15,11 @@ const countMaleFemale = (users) => {
         if (user.gender === "female"){
             females ++;
         } else {
-            males ++
+            males ++;
         }
     });
 
-    return `Male: ${males} Female: ${females}`;
+    return `<i class="fas fa-male"></i> : ${males}    <i class="fas fa-female"></i> : ${females}`;
 }
 
 export const renderUserList = (users) => {
