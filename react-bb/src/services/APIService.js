@@ -4,7 +4,7 @@ export const get = (url) => {
         headers: {
             "Content-type": "application/json; charset=UTF-8"
         },
-        method: "GET"
+        method: 'GET'
     })
         .then(response => {
             return response.json();

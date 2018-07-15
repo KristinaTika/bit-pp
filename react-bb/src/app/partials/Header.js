@@ -1,21 +1,20 @@
-import React, { Fragment } from "react";
+import React from "react";
+import { Link } from "react-router-dom";
 
 export const Header = () => {
 
-
-
     return (
-        <Fragment>
+        <header>
             <nav>
                 <div className="nav-wrapper">
-                    <a href="#" className="brand-logo">Bit Blog</a>
+                    <span>Bit Blog</span>
                     <ul id="nav-mobile" className="right hide-on-med-and-down">
-                        <li>Sass</li>
-                        <li>Components</li>
-                        <li>JavaScript</li>
+                        <li><Link to="/home">Home</Link></li>
+                        <li><Link to="/authors">Authors</Link></li>
+                        <li><Link to="/about">About</Link></li>
                     </ul>
                 </div>
             </nav>
-        </Fragment>
+        </header>
     )
 }

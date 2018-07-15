@@ -1,7 +1,6 @@
 import React, { Component, Fragment } from "react";
 import { postService } from "../../services/postService";
-import { Post } from "../../entities/Post";
-
+import { PostItem } from "../components/post/PostItem";
 
 export class PostPage extends Component {
     constructor() {
@@ -13,25 +12,28 @@ export class PostPage extends Component {
     }
 
     componentDidMount() {
-        this.getPosts()
+        this.getPosts();
     }
 
     getPosts = () => {
         postService.fetchPosts()
-            .then((response) => {
-                console.log(response);
-                
+            .then(response => {
                 this.setState({
                     posts: response
                 })
             })
-            // console.log(this.state.posts);
-            
+        .catch(message => {
+            console.log(message)
+            alert("Failed to load posts.")
+        });
     }
 
-    renderPosts = (posts) => {
-        posts.map((post, i) => {
-            return <Post post={post} key={i} />
+    renderPosts = (allPosts) => {
+
+        const {posts} = this.state;
+
+        return posts.map((post) => {
+            return <PostItem post={post} key={post.id} />
         })
     }
 
@@ -39,8 +41,10 @@ export class PostPage extends Component {
 
         return (
             <Fragment>
-                <h1>POSTS </h1>
-                <div>{this.renderPosts(this.state.posts)}</div>
+                <h1 className="center">POSTS </h1>
+                <div>
+                    {this.renderPosts()}
+                </div>
             </Fragment>
         )
     }

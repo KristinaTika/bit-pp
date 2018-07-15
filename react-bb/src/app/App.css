@@ -1,10 +1,12 @@
-body {
-  display: flex;
-  min-height: 100vh;
-  flex-direction: column;
+.map {
+  margin-top: 10px;
 }
 
-main {
-  flex: 1 0 auto;
+.divider {
+  border-bottom: 1px solid black;
+}
+
+.footer {
+  padding-bottom: 25px;
 }
     
