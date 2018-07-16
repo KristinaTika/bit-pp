@@ -97,7 +97,6 @@ const searchHandler = (event) => {
 
     const view = document.querySelector(".set-view");
     let searchValue = uiList.collectSearchData();
-    console.log(searchValue);
 
     let myUsers = JSON.parse(localStorage.getItem("users"));
     let filterUsers = myUsers.filter((user) => {
@@ -138,8 +137,8 @@ const closeSearchHandler = (event) => {
 
 export const init = () => {
 
-    loadAllUsers();
     renderLoader();
+    loadAllUsers();
 
     const body = document.querySelector("body");
     body.addEventListener("click", switchViewHandler);
