@@ -96,7 +96,9 @@ const searchHandler = (event) => {
 
     const view = document.querySelector(".set-view");
     let searchValue = uiList.collectSearchData();
+    console.log(searchValue);
 
+    let myUsers = JSON.parse(localStorage.getItem("users"));
     let filterUsers = myUsers.filter((user) => {
         let userName = user.name.toLowerCase();
         return userName.includes(searchValue);
@@ -105,11 +107,11 @@ const searchHandler = (event) => {
     if (view.textContent === "view_module") {
         renderLoader();
         uiList.renderUserList(filterUsers);
-    }
-    else if (view.textContent === "view_list") {
+    } else if (view.textContent === "view_list") {
         renderLoader();
         uiGrid.renderUserGrid(filterUsers);
     }
+    
     noUser();
 }
 
@@ -130,6 +132,7 @@ const closeSearchHandler = (event) => {
 }
 
 export const init = () => {
+
 
     renderLoader();
     loadUsers();

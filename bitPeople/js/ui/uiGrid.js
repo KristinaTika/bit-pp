@@ -25,6 +25,8 @@ const countMaleFemale = (users) => {
 export const renderUserGrid = (users) => {
 
     const searchBar = document.querySelector(".search-bar");
+
+    
     searchBar.classList.remove("class", "hide");
     searchBar.classList.add("class", "show");
 
@@ -73,6 +75,7 @@ export const renderUserGrid = (users) => {
             </div>
         `;
         const addGrid = document.querySelector(".add-grid")
+        
         addGrid.appendChild(userLi);
     });
 }
