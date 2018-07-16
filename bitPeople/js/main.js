@@ -4,20 +4,22 @@ import * as uiGrid from "./ui/uiGrid.js";
 import { renderAbout } from "./ui/uiAbout.js";
 import { renderLoader, noUser, renderLastUpdate } from "./ui/uiLoader.js";
 
-const container = document.querySelector(".root");
 
-const myUsers = [];
-
-const loadAllUsers = () => {
+let loadAllUsers = () => {
 
     data.getUsers()
         .then((users) => {
             users.forEach((user) => {
-                myUsers.push(user);
                 localStorage.setItem("users", JSON.stringify(users));
                 localStorage.setItem("updateTime", Date.now());
             });
-        });
+        })
+        .then(() => {
+
+            const myUsers = JSON.parse(localStorage.getItem("users"));
+            uiList.renderUserList(myUsers);
+            renderLastUpdate();
+        })
 }
 
 const loadUsers = () => {
@@ -52,7 +54,6 @@ const loadUserGrid = () => {
     const myUsers = JSON.parse(localStorage.getItem("users"));
     renderLoader();
     uiGrid.renderUserGrid(myUsers);
-
 }
 
 const switchViewHandler = (event) => {
@@ -104,15 +105,19 @@ const searchHandler = (event) => {
         return userName.includes(searchValue);
     });
 
-    if (view.textContent === "view_module") {
-        renderLoader();
-        uiList.renderUserList(filterUsers);
-    } else if (view.textContent === "view_list") {
-        renderLoader();
-        uiGrid.renderUserGrid(filterUsers);
+    if (filterUsers.length !== 0) {
+
+        if (view.textContent === "view_module") {
+            renderLoader();
+            uiList.renderUserList(filterUsers);
+        } else if (view.textContent === "view_list") {
+            renderLoader();
+            uiGrid.renderUserGrid(filterUsers);
+        }
+    } else {
+
+        noUser();
     }
-    
-    noUser();
 }
 
 const closeSearchHandler = (event) => {
@@ -133,9 +138,8 @@ const closeSearchHandler = (event) => {
 
 export const init = () => {
 
-
+    loadAllUsers();
     renderLoader();
-    loadUsers();
 
     const body = document.querySelector("body");
     body.addEventListener("click", switchViewHandler);

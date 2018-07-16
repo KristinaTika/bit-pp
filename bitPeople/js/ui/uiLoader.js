@@ -27,6 +27,7 @@ export const renderLoader = () => {
 
 export const noUser = () => {
 
+    container.innerHTML = "";
     const message = document.createElement("div");
     message.classList.add("class", "no-user-message")
     message.innerHTML = `
