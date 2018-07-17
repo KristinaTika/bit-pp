@@ -1,0 +1,1 @@
+export const usersEndpoint = "https://randomuser.me/api/?results=15";

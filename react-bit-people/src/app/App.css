@@ -1,0 +1,61 @@
+header nav {
+  background-color: rgb(60, 98, 116);
+  color: white;
+  padding-top: 20px;
+}
+
+header nav ul {
+  display: inline;
+}
+
+header nav ul li {
+  display: inline;
+  margin-left: 10px;
+  text-align: right;
+}
+
+.link {
+  color: white;
+  text-decoration-style: none;
+}
+
+footer {
+  width: 100%;
+  background-color: rgb(60, 98, 116);
+  color: white;
+  padding: 20px;
+  margin-top: 50px;
+}
+
+.footer {
+  text-align: center;
+  display: inline;
+}
+
+.list-item {
+  border: 1px solid rgb(196, 190, 190);
+  border-radius: 7px;
+  margin-top: 20px;
+  background-color: lavender;
+}
+
+.list-image {
+  border-radius: 50%;
+  margin: 30px;
+  margin-left: 70px;
+}
+
+.list-info {
+  margin-top: 50px;
+}
+
+.grid-card {
+  border-radius: 7px;
+  background-color: lavender;
+  margin-top: 50px;
+  
+}
+
+.about-page-title {
+  text-align: center;
+}
