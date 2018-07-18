@@ -6,7 +6,7 @@ export const ListItem = (props) => {
     return (
         <Fragment>
             <div className="container list-item">
-                <div className="row">
+                <div className="row" id={props.pinkColor(props.user)}>
                     <div className="row">
                         <div className="col-s2">
                             <img src={props.user.picture} alt={props.user.name} className="list-image" />

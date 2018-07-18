@@ -3,8 +3,8 @@ import './App.css';
 import { Header } from './partials/Header';
 import { Footer } from './partials/Footer';
 import { UserList } from './pages/UserList';
-import { About } from './pages/About';
 import { userService } from '../services/userService';
+import { SearchBar } from './components/SearchBar';
 
 
 export class App extends Component {
@@ -25,6 +25,9 @@ export class App extends Component {
   getUsers = () => {
     userService.fetchUsers()
       .then((response) => {
+        response.forEach((user) => {
+          localStorage.setItem("updateTime", Date.now());
+        });
         this.setState({
           users: response
         })
@@ -45,13 +48,30 @@ export class App extends Component {
     }
   }
 
+  pinkColor = (user) => {
+    if (user.gender === "female") {
+      return "female-color";
+    } else {
+      return;
+    }
+  }
+
+  searchInput = (event) => {
+    this.setState({
+      inputValue: event.target.value
+    })
+  }
+
+
+
 
   render() {
 
     return (
       <Fragment>
         <Header layout={this.renderView} listView={this.state.listView} getUsers={this.getUsers} />
-        <UserList  listView={this.state.listView} users={this.state.users} inputValue={this.state.inputValue} />
+        <SearchBar searchInput={this.searchInput} inputValue={this.state.inputValue} />
+        <UserList listView={this.state.listView} users={this.state.users} inputValue={this.state.inputValue} pinkColor={this.pinkColor} />
         <Footer />
       </Fragment>
     )

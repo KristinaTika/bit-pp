@@ -19,7 +19,7 @@ const countMaleFemale = (users) => {
         }
     });
 
-    return `<i class="fas fa-male"></i> : ${males}    <i class="fas fa-female"></i> : ${females}`;
+    return `Male : ${males}    Female : ${females}`;
 }
 
 export const renderUserList = (users) => {

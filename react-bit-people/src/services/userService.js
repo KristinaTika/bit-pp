@@ -11,8 +11,8 @@ class UserService {
                 return usersData.map((user) => {
                     const picture = user.picture.large;
                     const gender = user.gender;
-                    const firstName = user.name.first;
-                    const lastName = user.name.last;
+                    const firstName = user.name.first[0].toUpperCase() + user.name.first.slice(1);
+                    const lastName = user.name.last[0].toUpperCase() + user.name.last.slice(1);
                     const name = `${firstName} ${lastName}`;
                     let originalEmail = user.email;
                     const currentEmail = originalEmail.split("@");

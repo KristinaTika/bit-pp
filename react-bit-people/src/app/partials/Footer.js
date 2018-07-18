@@ -1,7 +1,13 @@
 import React, { Fragment } from 'react';
+import { UpdateTime } from '../components/UpdateTime';
 
 
 export const Footer = () => {
+
+
+
+
+
 
 
 
@@ -11,7 +17,8 @@ export const Footer = () => {
                 <div className="container">
                     <div className="row footer">
                         {new Date().getFullYear()} &#169; copyright Kristina Butkovic
-                </div>
+                        <UpdateTime />
+                    </div>
                 </div>
             </footer>
         </Fragment>

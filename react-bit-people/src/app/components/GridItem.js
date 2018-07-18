@@ -4,8 +4,8 @@ export const GridItem = (props) => {
 
 
     return (
-        <Fragment>   
-            <div className="card grid-card col-12 col-md-6 col-lg-4">
+        <Fragment>
+            <div className="card grid-card col-s-12 col-md-6 col-lg-4" id={props.pinkColor(props.user)}>
                 <img className="card-img-top" src={props.user.picture} alt={props.user.name} />
                 <div className="card-body">
                     <h5 className="card-title"><i className="fas fa-user"></i>  {props.user.name}</h5>

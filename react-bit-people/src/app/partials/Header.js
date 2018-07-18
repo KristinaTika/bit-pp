@@ -1,6 +1,5 @@
 import React, { Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import { list } from 'postcss';
 
 export const Header = (props) => {
 
@@ -13,13 +12,10 @@ export const Header = (props) => {
                 <nav>
                     <div className="container">
                         <div className="row">
-                            <span className="col-s6">React People</span>
+                            <span className="col-s1 offset-5 react-people">React People</span>
                             <ul className="col-s6 ">
-                                <li className="col-s3">
-                                    <Link to="/home" className="link ">Home</Link>
-                                </li>
                                 <li className="nav-item col-s3">
-                                    <Link to="/about" className="link">About</Link>
+                                    About
                                 </li>
                                 <li className="col-s3">
                                     <i className="fas fa-sync" onClick={() => props.getUsers()}></i>
