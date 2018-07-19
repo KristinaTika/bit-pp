@@ -10,7 +10,7 @@ header nav ul {
 
 header nav ul li {
   display: inline;
-  margin-left: 10px;
+  margin-left: 65px;
   text-align: right;
 }
 
@@ -19,8 +19,21 @@ header nav ul li {
   text-decoration-style: none;
 }
 
+.link-to:hover {
+  color: white;
+  text-decoration: none;
+}
+
+.link-to {
+  color: white;
+}
+
 .react-people {
   text-align: center;
+}
+
+.about-react-people {
+  padding-bottom: 20px;
 }
 
 footer {
@@ -34,6 +47,11 @@ footer {
 .footer {
   text-align: center;
   display: inline;
+}
+
+.update-time {
+ text-align: right;
+ display: inline-block;
 }
 
 .list-item {
@@ -61,6 +79,7 @@ footer {
 
 .about-page-title {
   text-align: center;
+  margin-top: 40px;
 }
 
 #female-color {
@@ -90,6 +109,9 @@ footer {
   margin-top: 20px;
 }
 
+.sorry {
+  margin-top: 20px;
+}
 
 
 .sk-folding-cube {

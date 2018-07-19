@@ -12,10 +12,11 @@ export const Header = (props) => {
                 <nav>
                     <div className="container">
                         <div className="row">
-                            <span className="col-s1 offset-5 react-people">React People</span>
+                            <span className="col-s1 offset-5 react-people">
+                            <Link to="/" className="link-to">React People</Link></span>
                             <ul className="col-s6 ">
                                 <li className="nav-item col-s3">
-                                    About
+                                   <Link to="/about" className="link-to"> About </Link>
                                 </li>
                                 <li className="col-s3">
                                     <i className="fas fa-sync" onClick={() => props.getUsers()}></i>

@@ -16,7 +16,7 @@ export const Footer = () => {
             <footer>
                 <div className="container">
                     <div className="row footer">
-                        {new Date().getFullYear()} &#169; copyright Kristina Butkovic
+                       <span className="col-s5"> {new Date().getFullYear()} &#169; copyright Kristina Butkovic </span>
                         <UpdateTime />
                     </div>
                 </div>

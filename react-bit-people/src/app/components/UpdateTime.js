@@ -32,30 +32,30 @@ export const UpdateTime = () => {
 
         let date = getMilliseconds();
 
+
         if (date.seconds >= 0) {
             return `Last update: ${date.seconds} seconds ago`;
         }
-        if (date.minute > 0) {
-            if (date.minute === 1) {
-                return `Last update: over an hour ago`;
-            }
+        if (date.minute > 0 || date.minute <= 1) {
+            return `Last update: about an hour ago`;
+
             return `Last update: ${date.minute} hours ago`;
         }
-         if (date.hour > 0) {
-            if (date.hour === 1) {
-                return `Last update: 1 minute ago`;
-            }
+        if (date.hour > 0 || date.hour <= 1) {
+
+            return `Last update: 1 minute ago`;
+
             return `Last update: ${date.hour} minutes ago`;
         }
-         if (date.day > 0) {
+        if (date.day > 0) {
             return `Last update: ${date.day} day ago`;
         }
     }
 
-   
+
     return (
-        <div>
-            
+        <div className="update-time col-6 ">
+            {countTime()}
         </div>
     );
 };

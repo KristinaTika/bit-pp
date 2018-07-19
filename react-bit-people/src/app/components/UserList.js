@@ -1,15 +1,16 @@
 import React, { Fragment } from 'react';
-import { ListItem } from '../components/ListItem';
-import { GridItem } from '../components/GridItem';
-import { NoResults } from '../components/NoResults';
+import { ListItem } from '../components/viewMode/ListItem';
+import { GridItem } from '../components/viewMode/GridItem';
+import { NoResults } from '../components/search/NoResults';
 import { LoadingScreen } from '../components/LoadingScreen';
 
 
 export const UserList = (props) => {
 
+
     const filterUsers = (users, value) => {
 
-        const filterUsers = users.filter((user, index) => user.name.includes(value.toLowerCase()));
+        const filterUsers = users.filter((user, index) => user.name.toLowerCase().includes(value.toLowerCase()));
 
         return filterUsers;
     }
@@ -27,15 +28,16 @@ export const UserList = (props) => {
                 return <ListItem key={index} user={user} pinkColor={props.pinkColor} />
             });
     }
+    
+    const myUsers = filterUsers(props.users, props.inputValue);
 
     const renderGridItem = (users) => {
 
-        const myUsers = filterUsers(users, props.inputValue);
 
         if (!myUsers.length) {
             return <NoResults />;
         }
-
+    
         return myUsers
             .map((user, index) => {
                 return <GridItem key={index} user={user} pinkColor={props.pinkColor} />
@@ -48,6 +50,7 @@ export const UserList = (props) => {
 
         if (!users.length) {
             return <LoadingScreen />
+            
         }
         else if (listView === "true") {
 
@@ -68,7 +71,7 @@ export const UserList = (props) => {
                 male++;
             }
         });
-
+        
         return (
             <div>
                 Male : {male} Female : {female}
@@ -82,7 +85,7 @@ export const UserList = (props) => {
     return (
         <Fragment>
             <div className="container">
-                <div className="count-people"> {countPeople(props.users)} </div>
+                <div className="count-people"> {countPeople(myUsers)} </div>
                 <div className="row">
                     {displayLayout(props.users)}
                 </div>
