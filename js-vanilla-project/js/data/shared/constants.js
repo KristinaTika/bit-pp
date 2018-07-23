@@ -1,0 +1,1 @@
+export const postsEndpoint = 'http://bitbookapi.azurewebsites.net/api/Posts';
