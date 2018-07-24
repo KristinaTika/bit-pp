@@ -3,6 +3,7 @@
     border: 1px solid black;
     box-sizing: border-box;
     border-radius: 10px;
+    list-style-type: none;
 }
 
 .img {
@@ -10,4 +11,8 @@
     width: 100%;
     margin-top: 15px;
     border-radius: 10px;
+}
+
+ul.main-post-list {
+    padding: 0;
 }

@@ -2,6 +2,8 @@ const root = document.querySelector(".root");
 
 const postList = document.createElement("ul");
 
+postList.setAttribute("class", "container main-post-list");
+
 const createVideoPost = (post) => {
 
     const postLi = document.createElement("li");
@@ -14,17 +16,16 @@ const createVideoPost = (post) => {
                 </div>
             </div>
             <div>
-            <span>${post.type} post </span>${post.commentsNum} comments
+                ${post.commentsNum} comments
             </div>
         </div>
-        <hr/>
      `;
-    
+
     postList.appendChild(postLi);
 }
 
 const createTextPost = (post) => {
-
+   
     const postLi = document.createElement("li");
     postLi.classList.add("text-post");
     postLi.innerHTML = `
@@ -33,10 +34,9 @@ const createTextPost = (post) => {
             ${post.text}
         </div>
         <div>
-            <span>${post.type} post </span>${post.commentsNum} comments
+            ${post.commentsNum} comments
         </div>
     </div>
-    <hr/>
     `;
     postList.appendChild(postLi);
 }
@@ -51,19 +51,21 @@ const createImagePost = (post) => {
             <img src=${post.imageUrl} alt=${post.type} class="img" />
         </div>
         <div>
-        <span>${post.type} post </span>${post.commentsNum} comments
+            ${post.commentsNum} comments
         </div>
     </div>
-    <hr/>
     `;
     postList.appendChild(postLi);
 }
 
 export const createFeedList = (posts) => {
 
+    root.innerHTML="";
+
     root.appendChild(postList);
 
     posts.forEach((post) => {
+
         switch (post.type) {
             case "text":
                 return createTextPost(post);

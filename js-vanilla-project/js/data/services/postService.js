@@ -21,23 +21,21 @@ class PostService {
             .then((response) => {
 
                 return response.map((post) => {
-                    if (post.type) {
-                        if (post.type === "text") {
+                    switch (post.type) {
+                        case "text":
                             return new TextPost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.text);
-                        }
-                        else if (post.type === "video") {
-                            return new VideoPost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.videoUrl)
-                        }
-                        else if (post.type === "image") {
-                            return new ImagePost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.imageUrl)
-                        }
-                    }
+                        case "video":
+                            return new VideoPost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.videoUrl);
+                        case "image":
+                            return new ImagePost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.imageUrl);
+                        default:
+                            console.log("no posts to show");
 
+                    }
                 })
 
             })
     }
-
 }
 
 export const postService = new PostService;
