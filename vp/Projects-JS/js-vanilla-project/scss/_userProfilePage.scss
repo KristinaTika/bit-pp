@@ -1,0 +1,21 @@
+.user-profile-photo {
+    display: block;
+    height: 200px;
+    width: 200px;
+    margin: 0 auto;
+    margin-top: 50px;
+    border-radius: 50%; 
+}
+
+.posts-count, .comments-count {
+    background-color: rgb(124, 204, 204);
+    color: white;
+    border-radius: 20px;
+    margin-left: 300px;
+    padding: 10px;
+}
+
+.user-name {
+    text-align: center;
+    margin-bottom: 20px;
+}

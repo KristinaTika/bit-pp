@@ -22,9 +22,7 @@ export const getPosts = () => {
 
 export const getSinglePost = (id) => {
     return postService.fetchSinglePost(id);
-    console.log(id)
 }
-
 
 
 export const getAuthors = () => {

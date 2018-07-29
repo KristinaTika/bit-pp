@@ -29,35 +29,39 @@ export const initSingleAuthorPage = () => {
 
 const singlePostHandler = (event) => {
 
-    // event.preventDefault();
+    event.preventDefault();
     if (event.target.className == "proradi") {
         const postId = event.target.getAttribute("data-id");
-        // location.href = "single-post.html";
-        // console.log(postId);
+        location.href = "single-post.html";
         // data.getSinglePost(postId)
         //     .then((response) => {
         //         ui.renderSinglePost(response);
         //     })
         // }
         return postId;
-    }
 }
 
-export const initSinglePost = () => {
+const singlePostLink = document.querySelector("body");
+singlePostLink.addEventListener("click", singlePostHandler);
+
+ const initSinglePost = (event) => {
 
     let postId = singlePostHandler();
-    console.log(postId);
     data.getSinglePost(postId)
         .then((response) => {
             ui.renderSinglePost(response);
         })
-
 }
 
 
 
-export const initSinglePostPage = () => {
-
-    const singlePostLink = document.querySelector("body");
-    singlePostLink.addEventListener("click", singlePostHandler);
+ const initSinglePostPage = () => {
+     // location.href = "single-post.html";
+     const postId = singlePostHandler();
+     data.getSinglePost(postId)
+     .then((response) => {
+         ui.renderSinglePost(response);
+     })
+ }
+ return postId;
 }

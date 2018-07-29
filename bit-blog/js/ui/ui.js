@@ -5,7 +5,7 @@ export const renderPosts = (posts) => {
     posts.forEach((post) => {
         let postLi = document.createElement("li");
         postLi.innerHTML = `
-        <li  id="post-li">
+        <li id="post-li">
            
                 <h3 data-id="${post.id}" class="proradi" >${post.title}</h3>
             
@@ -19,8 +19,6 @@ export const renderPosts = (posts) => {
 export const renderSinglePost = (post) => {
 
     const singlePost = document.querySelector(".single-post");
-    console.log(singlePost);
-
     let singlePostLi = document.createElement("li");
     singlePostLi.innerHTML = `
     <h1>${post.title}</h1>
@@ -28,12 +26,8 @@ export const renderSinglePost = (post) => {
     <p>${post.body}</p>
     <hr>
     `;
-    console.log(singlePostLi)
     singlePost.appendChild(singlePostLi);
 }
-
-
-
 
 export const renderAuthors = (authors) => {
 
@@ -82,5 +76,4 @@ export const renderSingleAuthor = (author) => {
         <div class="col-12">Slogan: ${author.company.slogan}</div>
     </div>`;
     singleAuthor.appendChild(authorLi);
-
 }
