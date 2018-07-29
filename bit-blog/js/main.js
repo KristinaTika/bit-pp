@@ -32,6 +32,7 @@ const singlePostHandler = (event) => {
     event.preventDefault();
     if (event.target.className == "proradi") {
         const postId = event.target.getAttribute("data-id");
+<<<<<<< HEAD
         location.href = "single-post.html";
         // data.getSinglePost(postId)
         //     .then((response) => {
@@ -39,6 +40,17 @@ const singlePostHandler = (event) => {
         //     })
         // }
         return postId;
+=======
+        // location.href = "single-post.html";
+        console.log(postId);
+        data.getSinglePost(postId)
+            .then((response) => {
+                ui.renderSinglePost(response);
+            })
+        }
+        return postId;
+    
+>>>>>>> 0ad553ed07b4d59547564dbbed6ff62528d74923
 }
 
 const singlePostLink = document.querySelector("body");
