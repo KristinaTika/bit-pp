@@ -1,7 +1,4 @@
-import {filterPostsHandler} from "../../main.js";
-
 const root = document.querySelector(".root");
-
 const postList = document.createElement("ul");
 postList.setAttribute("class", "container main-post-list");
 
@@ -26,11 +23,73 @@ const createTextPost = (post) => {
         </div>
     </div>
     `;
-
     postList.appendChild(postLi);
 }
 
+const createVideoPost = (post) => {
+
+    const postLi = document.createElement("li");
+    postLi.setAttribute("class", "feed-post video-post");
+    postLi.innerHTML = `
+        <div class="container" post-id=${post.id}>
+            <div class="row" user-id=${post.userId}>
+                <div class="video-content">
+                    <iframe width='100%' height='300' src=${post.videoUrl} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
+                </div>
+            </div>
+            <div class="col-12">
+                <span class="post-type">
+                    ${post.type} post 
+                </span>
+                <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
+                    ${post.commentsNum} comments
+                </a>
+            </div>
+        </div>
+     `;
+    postList.appendChild(postLi);
+}
+
+const createImagePost = (post) => {
+
+    const postLi = document.createElement("li");
+    postLi.setAttribute("class", "feed-post image-post");
+    postLi.innerHTML = `
+    <div class="container feed-image-post" post-id=${post.id}>
+        <div class="post-content" user-id=${post.userId}>
+            <img src=${post.imageUrl} alt=${post.type} class="feed-img" />
+        </div>
+        <div class="post-event">
+            <span class="post-type">
+                ${post.type} post 
+            </span>
+            <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
+                ${post.commentsNum} comments 
+            </a>
+        </div>
+    </div>
+    `;
+    postList.appendChild(postLi);
+}
+
+const createFilterMenu = () => {
+
+    const filterButton = document.createElement("select");
+    filterButton.setAttribute("class", "filter-posts");
+    filterButton.innerHTML = `
+        <option value="-">Filter Posts</option>
+        <option value="all" id="all-posts">All Posts</option>
+        <option value="image" id="image-posts">Image Posts</option>
+        <option value="text" id="text-posts">Text Posts</option>
+        <option value="video" id="video-posts">Video Posts</option>
+    `;
+    root.prepend(filterButton);
+    filterButton.addEventListener("change", filterPostsHandler);
+}
+
 export const filterTextPost = () => {
+
+    createFilterMenu()
 
     const posts = JSON.parse(localStorage.getItem("posts"));
     let filteredPosts = [];
@@ -58,42 +117,14 @@ export const filterTextPost = () => {
                 </div>
             </div>
             `;
-    
         root.appendChild(postLi);
-
     })
-
-    const allPosts = document.querySelectorAll(".filter-posts");
-    allPosts.forEach((post) => {
-        post.addEventListener("change", filterPostsHandler)
-    })
-}
-
-const createVideoPost = (post) => {
-
-    const postLi = document.createElement("li");
-    postLi.setAttribute("class", "feed-post video-post");
-    postLi.innerHTML = `
-        <div class="container" post-id=${post.id}>
-            <div class="row" user-id=${post.userId}>
-                <div class="video-content">
-                    <iframe width='100%' height='300' src=${post.videoUrl} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
-                </div>
-            </div>
-            <div class="col-12">
-                <span class="post-type">
-                    ${post.type} post 
-                </span>
-                <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
-                    ${post.commentsNum} comments
-                </a>
-            </div>
-        </div>
-     `;
-    postList.appendChild(postLi);
 }
 
 export const filterVideoPost = () => {
+
+    createFilterMenu();
+
     const posts = JSON.parse(localStorage.getItem("posts"));
     let filteredPosts = [];
 
@@ -120,40 +151,14 @@ export const filterVideoPost = () => {
                 </a>
             </div>
         </div>
-     `;
-    root.appendChild(postLi);
-    })
-
-    const allPosts = document.querySelectorAll(".filter-posts");
-    allPosts.forEach((post) => {
-        post.addEventListener("change", filterPostsHandler)
-    })
-}
-
-
-const createImagePost = (post) => {
-
-    const postLi = document.createElement("li");
-    postLi.setAttribute("class", "feed-post image-post");
-    postLi.innerHTML = `
-    <div class="container feed-image-post" post-id=${post.id}>
-        <div class="post-content" user-id=${post.userId}>
-            <img src=${post.imageUrl} alt=${post.type} class="feed-img" />
-        </div>
-        <div class="post-event">
-            <span class="post-type">
-                ${post.type} post 
-            </span>
-            <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
-                ${post.commentsNum} comments 
-            </a>
-        </div>
-    </div>
     `;
-    postList.appendChild(postLi);
+    root.appendChild(postLi);
+    });
 }
 
 export const filterImagePost = () => {
+
+    createFilterMenu()
 
     const posts = JSON.parse(localStorage.getItem("posts"));
     let filteredPosts = [];
@@ -181,12 +186,7 @@ export const filterImagePost = () => {
     </div>
     `;
     root.appendChild(postLi);
-    })
-
-    const allPosts = document.querySelectorAll(".filter-posts");
-    allPosts.forEach((post) => {
-        post.addEventListener("change", filterPostsHandler)
-    })
+    });
 }
 
 const noFeed = () => {
@@ -238,7 +238,9 @@ export const createFeedList = (posts) => {
             default:
                 return noFeed();
         }
-    })
+    });
+
+    createFilterMenu()
 
     // createButton.addEventListener("mouseover", openTypeOfPostsHandler);
 }
@@ -325,26 +327,31 @@ const createModal = (event) => {
     btns.forEach((btn) => {
         btn.addEventListener("click", () => {
             modal.style.display = "block";
-        })
-    })
+        });
+    });
 
     span.addEventListener("click", () => {
         modal.style.display = "none";
-    })
+    });
 }
 
-export const createFilterMenu = () => {
+export const filterPostsHandler = (event) => {
 
-    const filterButton = document.createElement("select");
-    filterButton.setAttribute("class", "filter-posts");
-    filterButton.innerHTML = `
-        <option value="-">Filter Posts</option>
-        <option value="all" id="all-posts">All Posts</option>
-        <option value="image" id="image-posts">Image Posts</option>
-        <option value="text" id="text-posts">Text Posts</option>
-        <option value="video" id="video-posts">Video Posts</option>
-    `;
-    root.prepend(filterButton);
+    const posts = JSON.parse(localStorage.getItem("posts"));
+    root.innerHTML = "";
+
+        if (event.target.value === "text") {
+            return filterTextPost();
+        }
+        else if (event.target.value === "video") {
+            return filterVideoPost();
+        }
+        else if (event.target.value === "image") {
+            return filterImagePost();
+        }
+
+        else if (event.target.value === "all") {
+            return createFeedList(posts);
+        }
 }
-
 

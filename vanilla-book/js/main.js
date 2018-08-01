@@ -6,13 +6,14 @@ import { createUsersList, goToUserProfile } from "./ui/peoplePage/UsersList.js";
 import { createFooter } from "./ui/partials/Footer.js";
 import { createMyProfilePage } from "./ui/profilePage/MyProfile.js";
 
+const myUsers = [];
+
 const createFeedPage = (event) => {
 
     data.getPosts()
         .then((posts) => {
             localStorage.setItem("posts", JSON.stringify(posts));
-            feedPage.createFeedList(posts)
-            feedPage.createFilterMenu()
+            feedPage.createFeedList(posts);
         });
     setTimeout(initFilterMenu, 2000)
 }
@@ -21,77 +22,89 @@ const initFilterMenu = () => {
 
     const allPosts = document.querySelectorAll(".filter-posts");
     allPosts.forEach((post) => {
-        post.addEventListener("change", filterPostsHandler)
+        post.addEventListener("change", filPostsHandler);
     })
 }
 
-export const filterPostsHandler = (event) => {
-
-    const posts = JSON.parse(localStorage.getItem("posts"));
-    const root = document.querySelector(".root");
-    root.innerHTML = "";
-
-    feedPage.createFilterMenu();
-
-        if (event.target.value === "text") {
-            return feedPage.filterTextPost();
-        }
-        else if (event.target.value === "video") {
-            return feedPage.filterVideoPost();
-        }
-        else if (event.target.value === "image") {
-            return feedPage.filterImagePost();
-        }
-
-        else if (event.target.value === "all") {
-            return feedPage.createFeedList(posts);
-        }
+const filPostsHandler = (event) => {
+    feedPage.filterPostsHandler(event);
 }
 
 const initFeedPage = (event) => {
-
+    
     const feedPage = document.querySelectorAll(".feed-page");
     feedPage.forEach((feed) => {
         feed.addEventListener("click", feedPageHandler);
     });
+
 }
 
 const feedPageHandler = (event) => {
+    const inputField = document.querySelector(".search-users");
+    if(inputField) {
+        inputField.setAttribute("class", "hide");
+    } 
     createFeedPage();
+}
+
+const displayUsersList = (users) => {
+
+    createUsersList(users);
+
+    const search = document.querySelector(".search-users");
+    search.addEventListener("keyup", filterUsers);
+
+    initGoToUserProfilePage();
+}
+
+const goToUserProfileHandler = (event) => {
+
+    const inputField = document.querySelector(".search-users");
+    if(inputField) {
+        inputField.setAttribute("class", "hide");
+    } 
+
+    event.preventDefault();
+    const userId = event.target.getAttribute("user-id");
+
+    data.getSingleUser(userId)
+        .then((user) => {
+            goToUserProfile(user);
+        });
+}
+
+const initGoToUserProfilePage = () => {
+
+    setTimeout( () => {const profiles = document.querySelectorAll(".user-name");
+    profiles.forEach((profile) => {
+        profile.addEventListener("click", goToUserProfileHandler);
+    })}, 1000)
+}
+
+const filterUsers = (event) => {
+
+    initGoToUserProfilePage();
+
+    const myUsers = JSON.parse(localStorage.getItem("users"));
+   
+    let filterUsers = myUsers.filter((user) => {
+        let userName = user.name.toLowerCase();
+        return userName.includes(event.target.value);
+    });
+
+    createUsersList(filterUsers);
 }
 
 const createUserPage = (event) => {
 
     data.getUsers()
         .then((users) => {
-            localStorage.setItem("users", JSON.stringify(users));
-            createUsersList(users);
-        });
-
-    setTimeout(initSingleUserProfilePage, 1000);
-    setTimeout(filterUsersHandler, 1000);
-}
-
-const filterUsersHandler = () => {
-    const search = document.querySelector(".comment-value");
-    search.addEventListener("keyup", filterUsers);
-}
-
-const filterUsers = (event) => {
-
-    let searchValue = collectCommentInput();
-    console.log(searchValue);
-    const myUsers = JSON.parse(localStorage.getItem("users"));
-
-    let filterUsers = myUsers.filter((user) => {
-        let userName = user.name.toLowerCase();
-        return userName.includes(searchValue);
-    });
-
-    if (searchValue === "") {
-        return
-    }
-    createUsersList(filterUsers);
+            displayUsersList(users);
+            users.forEach((user) => {
+                myUsers.push(user);
+                localStorage.setItem("users", JSON.stringify(users));
+            });
+        })
 }
 
 const initUsersPage = () => {
@@ -177,26 +190,12 @@ const initSinglePostPage = (event) => {
     });
 }
 
-const goToUserProfileHandler = (event) => {
-
-    event.preventDefault();
-    const userId = event.target.getAttribute("user-id");
-
-    data.getSingleUser(userId)
-        .then((user) => {
-            goToUserProfile(user);
-        });
-}
-
-const initSingleUserProfilePage = () => {
-
-    const profiles = document.querySelectorAll(".user-name");
-    profiles.forEach((profile) => {
-        profile.addEventListener("click", goToUserProfileHandler);
-    });
-}
-
 const profilePageHandler = (event) => {
+
+    const inputField = document.querySelector(".search-users");
+    if(inputField) {
+        inputField.setAttribute("class", "hide");
+    } 
 
     data.getProfile()
         .then((profile) => {

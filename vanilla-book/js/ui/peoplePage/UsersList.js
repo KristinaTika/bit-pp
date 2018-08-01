@@ -1,27 +1,33 @@
 const root = document.querySelector(".root");
 
-export const createUsersList = (users) => {
-    
-    root.innerHTML = "";
-
-    const usersList = document.createElement("ul");
-    usersList.setAttribute("class", "container users-list");
-    const row = document.createElement("div");
-    row.setAttribute("class", "row");
-    usersList.appendChild(row);
+const createSearch = () => {
 
     const inputField = document.createElement("input");
     inputField.setAttribute("type", "text");
     inputField.setAttribute("placeholder", "Search users...");
-    inputField.setAttribute("class", "col-sm-11 offset-1 comment-value");
-    row.appendChild(inputField);
+    inputField.setAttribute("class", "container col-sm-11 offset-1 search-users");
+    const header = document.querySelector("header"); 
+    header.appendChild(inputField);
+}
 
+export const createUsersList = (users) => {
+
+    const inputField = document.querySelector(".search-users");
+    if(!inputField) {
+        createSearch();
+    }
+    
+    root.innerHTML = "";
+    const usersList = document.createElement("ul");
+    usersList.setAttribute("class", "container users-list");
+    const row = document.createElement("div");
+    row.setAttribute("class", "row search-input");
+    usersList.appendChild(row);
+    
     users.forEach((user) => {
-
         const userLi = document.createElement("li");
         userLi.setAttribute("class", "user-li col-md-12 col-lg-5 offset-lg-1");
         userLi.innerHTML = `
-        
         <div class="container">
             <div class="row">
                 <img src=${user.avatarUrl} alt="avatar" class="col-sm-2 user-img"/>
@@ -29,7 +35,6 @@ export const createUsersList = (users) => {
             </div>
         </div>
         `;
-
         root.appendChild(usersList);
         usersList.appendChild(userLi);
     });
@@ -63,3 +68,6 @@ export const goToUserProfile = (user) => {
         `;
         root.appendChild(profile);
 }
+
+
+

@@ -93,14 +93,14 @@ html {
   min-height: 100%; }
 
 footer {
-  position: absolute;
   bottom: 0;
   width: 100%; }
 
 .footer {
   background: #7ccccc;
   color: aliceblue;
-  text-align: center; }
+  text-align: center;
+  margin-top: 20px; }
 
 .video-post, .text-post, .image-post {
   margin-top: 10px;
@@ -246,6 +246,17 @@ ul.main-post-list {
   margin-top: 20px;
   font-weight: 500; }
 
+.search-users {
+  margin-top: 20px;
+  width: 80%;
+  border-radius: 10px; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: initial; }
+
 .comment-value {
   margin-top: 20px;
   width: 80%;
@@ -264,7 +275,8 @@ ul.main-post-list {
   border: 1px solid #7ccccc;
   border-radius: 10px;
   list-style-type: none;
-  margin: 20px 0px; }
+  margin: 20px 0px;
+  margin-bottom: 20px; }
 
 .comment-content {
   margin-top: 20px; }
