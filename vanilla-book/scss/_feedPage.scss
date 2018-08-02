@@ -9,7 +9,6 @@
 .feed-img {
     height: 300px;
     width: 100%;
-    margin-top: 15px;
     border-radius: 10px;
 }
 
@@ -30,11 +29,17 @@ ul.main-post-list {
     margin-top: 15px;
 }
 
+//////////////////////////////
+ // create new post button //
+/////////////////////////////
+
 #create-post-button {
     position: fixed;
-    left: 30px;
-    background-color: white;
-    color: white;
+    right: 80px;
+    bottom: 56px;
+    margin-bottom: 0;
+    z-index: 997;
+    display: block;
 }
 
 .img-post-button {
@@ -43,31 +48,30 @@ ul.main-post-list {
     height: 50px;
 }
 
-.create-text {
+.create-text, .create-video, .create-image {
     text-align: center;
-    background-color: rgb(84, 133, 238);
     width: 50px;
     height: 50px;
     border-radius: 50%;
-    margin-left: 30px;
+}
+
+.create-text {
+    background-color: rgb(155, 183, 241);
 }
 
 .create-video {
-    text-align: center;
-    background-color: rgb(238, 80, 80);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-left: 30px;
+    background-color: rgb(235, 133, 133);
 }
 
 .create-image {
-    text-align: center;
-    background-color: rgb(86, 253, 136);
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    margin-left: 30px;
+    background-color: rgb(133, 250, 168);
+}
+
+#create-new-post {
+    border-radius: 10px;
+    color: white;
+    background-color: rgb(124, 204, 204);
+    padding: 0 10px;
 }
 
 .move-content {
@@ -75,11 +79,30 @@ ul.main-post-list {
     top: 11px;
 }
 
-#new-text-post {
-    width: 90%;
+#post-value {
+    width: 60%;
     height: 50px;
 }
 
+#filter-container {
+    text-align: right;
+    margin-top: 10px;
+    margin-right: 80px;
+}
+
+.filter-posts {
+    background-color: rgb(124, 204, 204);
+    color: white;
+    border-radius: 10px;
+}
+
+.hide {
+    display: none;
+}
+
+.show {
+    display: block;
+}
 
 /* The Modal (background) */
 .modal {
@@ -101,7 +124,7 @@ ul.main-post-list {
     margin: 15% auto; /* 15% from the top and centered */
     padding: 20px;
     border: 1px solid #888;
-    width: 80%; /* Could be more or less, depending on screen size */
+    width: 50%; /* Could be more or less, depending on screen size */
 }
 
 /* The Close Button */
@@ -117,6 +140,20 @@ ul.main-post-list {
     color: black;
     text-decoration: none;
     cursor: pointer;
+}
+
+@media (min-width: 320px) {
+    .feed-img {
+        height: 200px;
+        width: 300px;
+    }
+}
+
+@media (min-width: 640px) {
+    .feed-img {
+        height: 300px;
+        width: 100%;
+    }
 }
 
 

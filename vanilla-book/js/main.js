@@ -1,10 +1,10 @@
 import { createHeader } from "./ui/partials/Header.js";
 import * as data from "./data/data.js";
 import * as feedPage from "./ui/feedPage/FeedList.js";
-import { createSinglePost, collectCommentInput } from "./ui/feedPage/SinglePost.js";
+import { createSinglePost, handlerComments } from "./ui/feedPage/SinglePost.js";
 import { createUsersList, goToUserProfile } from "./ui/peoplePage/UsersList.js";
 import { createFooter } from "./ui/partials/Footer.js";
-import { createMyProfilePage } from "./ui/profilePage/MyProfile.js";
+import { createMyProfilePage, updProfileHandler } from "./ui/profilePage/MyProfile.js";
 
 const myUsers = [];
 
@@ -16,6 +16,23 @@ const createFeedPage = (event) => {
             feedPage.createFeedList(posts);
         });
     setTimeout(initFilterMenu, 2000)
+    setTimeout(initHandlerNewPost, 1000)
+}
+
+const initHandlerNewPost = () => {
+    
+    const postButton = document.querySelector("#create-new-post");
+    postButton.addEventListener("click", handlerNewPost)
+}
+
+const handlerNewPost = (event) => {
+   const dataToPost = feedPage.newPostHandler(event);
+
+   data.createNewPost(dataToPost.type, dataToPost)
+    .then((response) => {
+        console.log(response); 
+    })
+   
 }
 
 const initFilterMenu = () => {
@@ -27,42 +44,41 @@ const initFilterMenu = () => {
 }
 
 const filPostsHandler = (event) => {
+
     feedPage.filterPostsHandler(event);
+    initSinglePostPage();
 }
 
 const initFeedPage = (event) => {
-    
+
     const feedPage = document.querySelectorAll(".feed-page");
     feedPage.forEach((feed) => {
         feed.addEventListener("click", feedPageHandler);
     });
-
 }
 
 const feedPageHandler = (event) => {
     const inputField = document.querySelector(".search-users");
-    if(inputField) {
+    if (inputField) {
         inputField.setAttribute("class", "hide");
-    } 
+    }
     createFeedPage();
 }
 
 const displayUsersList = (users) => {
 
     createUsersList(users);
-
     const search = document.querySelector(".search-users");
     search.addEventListener("keyup", filterUsers);
-
     initGoToUserProfilePage();
 }
 
 const goToUserProfileHandler = (event) => {
 
     const inputField = document.querySelector(".search-users");
-    if(inputField) {
+    if (inputField) {
         inputField.setAttribute("class", "hide");
-    } 
+    }
 
     event.preventDefault();
     const userId = event.target.getAttribute("user-id");
@@ -75,18 +91,19 @@ const goToUserProfileHandler = (event) => {
 
 const initGoToUserProfilePage = () => {
 
-    setTimeout( () => {const profiles = document.querySelectorAll(".user-name");
-    profiles.forEach((profile) => {
-        profile.addEventListener("click", goToUserProfileHandler);
-    })}, 1000)
+    setTimeout(() => {
+        const profiles = document.querySelectorAll(".user-name");
+        profiles.forEach((profile) => {
+            profile.addEventListener("click", goToUserProfileHandler);
+        })
+    }, 1000)
 }
 
 const filterUsers = (event) => {
 
     initGoToUserProfilePage();
-
     const myUsers = JSON.parse(localStorage.getItem("users"));
-   
+
     let filterUsers = myUsers.filter((user) => {
         let userName = user.name.toLowerCase();
         return userName.includes(event.target.value);
@@ -135,10 +152,10 @@ const getCommentsHandler = (post) => {
 
     data.getComments(post.id)
         .then((comments) => {
-            localStorage.setItem("comments", JSON.stringify(comments));
             if (comments) {
                 createSinglePost(post);
             }
+            localStorage.setItem("comments", JSON.stringify(comments));
             comments.forEach((comment) => {
                 data.getSingleUser(comment.authorId)
                     .then((user) => {
@@ -151,29 +168,16 @@ const getCommentsHandler = (post) => {
 
 const postCommentHandler = (event) => {
 
-    event.preventDefault();
-    const inputValue = collectCommentInput();
-    const singlePost = JSON.parse(localStorage.getItem("post"));
-    const userId = singlePost.userId;
-    const postId = singlePost.id;
+    const obj = handlerComments(event);
 
-    const post = {
-        id: "1",
-        dateCreated: Date.now,
-        body: inputValue,
-        postId: postId,
-        authorName: "dads",
-        authorId: userId
-    }
-
-    data.postNewComment(post)
+    data.postNewComment(obj.post)
         .then((response) => {
-            newCommentHandler(singlePost)
+            newCommentHandler(obj.singlePost)
         });
 }
 
 const newCommentHandler = (postId) => {
-    getCommentsHandler(postId)
+    getCommentsHandler(postId);
 }
 
 const postNewSingleComment = () => {
@@ -193,9 +197,9 @@ const initSinglePostPage = (event) => {
 const profilePageHandler = (event) => {
 
     const inputField = document.querySelector(".search-users");
-    if(inputField) {
+    if (inputField) {
         inputField.setAttribute("class", "hide");
-    } 
+    }
 
     data.getProfile()
         .then((profile) => {
@@ -207,7 +211,6 @@ const profilePageHandler = (event) => {
 }
 
 const initProfilePage = () => {
-
     const profilePage = document.querySelectorAll(".profile-page");
     profilePage.forEach((profile) => {
         profile.addEventListener("click", profilePageHandler);
@@ -215,43 +218,7 @@ const initProfilePage = () => {
 }
 
 const updateProfileHandler = (event) => {
-
-    event.preventDefault();
-
-    const nameInput = document.querySelector("#update-name");
-    const name = nameInput.value;
-    const aboutInput = document.querySelector("#update-about");
-    const about = aboutInput.value;
-    const photoInput = document.querySelector("#update-photo-link");
-    const photo = photoInput.value;
-    const profile = JSON.parse(localStorage.getItem("profile"));
-
-    const checkName = (name) => {
-        if (name === "") {
-            return profile.name;
-        }
-        return name;
-    }
-
-    const checkPhoto = (photo) => {
-        if (photo === "") {
-            return profile.avatarUrl;
-        }
-        return photo
-    }
-
-    const checkedName = checkName(name);
-    const checkedPhoto = checkPhoto(photo);
-
-    const dataToUpdate = {
-        userId: profile.id,
-        name: checkedName,
-        email: "bla@gmail.com",
-        aboutShort: about,
-        about: about,
-        avatarUrl: checkedPhoto,
-        commentsCount: profile.commentsCount
-    }
+    const dataToUpdate = updProfileHandler(event);
 
     data.updateProfile(dataToUpdate)
         .then((response) => {
@@ -260,7 +227,6 @@ const updateProfileHandler = (event) => {
 }
 
 const initProfileModal = () => {
-
     const update = document.querySelector("#update-profile");
     update.addEventListener("click", updateProfileHandler);
 }

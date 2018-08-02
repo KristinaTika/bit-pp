@@ -1,4 +1,4 @@
-export const body = document.querySelector("body");
+const body = document.querySelector("body");
 
 export const createHeader = () => {
 
@@ -17,9 +17,9 @@ export const createHeader = () => {
             <nav class="desktop">
                 <h1 class="logo-title"> Virtual life </h1>
                 <div class="desktop-nav row">
-                        <div class=" col-lg-1 feed-page">Feed</div>
-                        <div class="col-lg-1 people-page">People</div>  
-                        <div class="col-lg-1 profile-page">Profile</div>  
+                        <div class="feed-page">Feed</div>
+                        <div class="people-page">People</div>  
+                        <div class="profile-page">Profile</div>  
                 </div>
             </nav>
         </div>
@@ -31,8 +31,7 @@ export const createHeader = () => {
             <li class="mobile-item profile-page">Profile</li>
         </ul>
     </nav>
-
-    `
+    `;
     body.insertBefore(header, body.firstChild);
 
     const openMobile = () => {

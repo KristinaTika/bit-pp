@@ -55,34 +55,44 @@ export const createMyProfilePage = (user) => {
     })
 }
 
-const collectUpdateData = (event) => {
+export const updProfileHandler = (event) => {
 
     event.preventDefault();
 
     const nameInput = document.querySelector("#update-name");
     const name = nameInput.value;
-
     const aboutInput = document.querySelector("#update-about");
     const about = aboutInput.value;
-
     const photoInput = document.querySelector("#update-photo-link");
     const photo = photoInput.value;
+    const profile = JSON.parse(localStorage.getItem("profile"));
 
-    return updateData = {
-        name,
-        about,
-        photo
-    } 
-}
+    const checkName = (name) => {
+        if (name === "") {
+            return profile.name;
+        }
+        return name;
+    }
 
-const clearUpdatedData = () => {
+    const checkPhoto = (photo) => {
+        if (photo === "") {
+            return profile.avatarUrl;
+        }
+        return photo
+    }
 
-    event.preventDefault();
+    const checkedName = checkName(name);
+    const checkedPhoto = checkPhoto(photo);
 
-    const nameInput = document.querySelector("#update-name");
-    nameInput.value = "";
-    const aboutInput = document.querySelector("#update-about");
-    aboutInput.value = "";
-    const photoInput = document.querySelector("#update-photo-link");
-    photoInput.value = "";
+    const dataToUpdate = {
+        userId: profile.id,
+        name: checkedName,
+        email: "bla@gmail.com",
+        aboutShort: about,
+        about: about,
+        avatarUrl: checkedPhoto,
+        commentsCount: profile.commentsCount
+    }
+
+    return dataToUpdate;
 }

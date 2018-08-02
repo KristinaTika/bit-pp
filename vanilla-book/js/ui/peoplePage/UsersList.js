@@ -2,17 +2,22 @@ const root = document.querySelector(".root");
 
 const createSearch = () => {
 
+    const header = document.querySelector("header"); 
+    const div = document.createElement("div");
+    div.setAttribute("class", "container")
+    header.appendChild(div);
+
     const inputField = document.createElement("input");
     inputField.setAttribute("type", "text");
     inputField.setAttribute("placeholder", "Search users...");
-    inputField.setAttribute("class", "container col-sm-11 offset-1 search-users");
-    const header = document.querySelector("header"); 
-    header.appendChild(inputField);
+    inputField.setAttribute("class", "col-sm-12 col-lg-11 offset-lg-1 search-users");
+    div.appendChild(inputField);
 }
 
 export const createUsersList = (users) => {
 
     const inputField = document.querySelector(".search-users");
+    
     if(!inputField) {
         createSearch();
     }
@@ -30,8 +35,8 @@ export const createUsersList = (users) => {
         userLi.innerHTML = `
         <div class="container">
             <div class="row">
-                <img src=${user.avatarUrl} alt="avatar" class="col-sm-2 user-img"/>
-                <span class="col-sm-6 user-name" user-id="${user.id}"> ${user.name} </span>
+                <img src=${user.avatarUrl} alt="avatar" class=" user-img"/>
+                <span class="user-name" user-id="${user.id}"> ${user.name} </span>
             </div>
         </div>
         `;

@@ -1,4 +1,4 @@
-import { get } from "./APIService.js";
+import { get, post } from "./APIService.js";
 import { postsEndpoint, urlEndpoint } from "../shared/constants.js";
 import { Post } from "../entities/Post.js";
 import { TextPost } from "../entities/TextPost.js";

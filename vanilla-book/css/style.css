@@ -62,7 +62,7 @@ body {
   padding: 0;
   margin-left: 26px;
   margin-top: 30px;
-  font-size: 10px; }
+  font-size: 20px; }
 
 .logo-title {
   position: relative;
@@ -83,16 +83,19 @@ body {
 
   .logo-title {
     position: relative;
-    top: 15px; }
+    top: 30px;
+    display: inline; }
 
   .feed-page, .profile-page, .people-page {
-    position: relative;
-    bottom: 15px; } }
+    text-align: center;
+    display: inline;
+    margin-bottom: 30px; } }
 html {
   position: relative;
   min-height: 100%; }
 
 footer {
+  position: absolute;
   bottom: 0;
   width: 100%; }
 
@@ -112,7 +115,6 @@ footer {
 .feed-img {
   height: 300px;
   width: 100%;
-  margin-top: 15px;
   border-radius: 10px; }
 
 ul.main-post-list {
@@ -130,46 +132,61 @@ ul.main-post-list {
 
 #create-post-button {
   position: fixed;
-  left: 30px;
-  background-color: white;
-  color: white; }
+  right: 80px;
+  bottom: 56px;
+  margin-bottom: 0;
+  z-index: 997;
+  display: block; }
 
 .img-post-button {
   display: block;
   width: 50px;
   height: 50px; }
 
-.create-text {
+.create-text, .create-video, .create-image {
   text-align: center;
-  background-color: #5485ee;
   width: 50px;
   height: 50px;
-  border-radius: 50%;
-  margin-left: 30px; }
+  border-radius: 50%; }
+
+.create-text {
+  background-color: #9bb7f1; }
 
 .create-video {
-  text-align: center;
-  background-color: #ee5050;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-left: 30px; }
+  background-color: #eb8585; }
 
 .create-image {
-  text-align: center;
-  background-color: #56fd88;
-  width: 50px;
-  height: 50px;
-  border-radius: 50%;
-  margin-left: 30px; }
+  background-color: #85faa8; }
+
+#create-new-post {
+  border-radius: 10px;
+  color: white;
+  background-color: #7ccccc;
+  padding: 0 10px; }
 
 .move-content {
   position: relative;
   top: 11px; }
 
-#new-text-post {
-  width: 90%;
+#post-value {
+  width: 60%;
   height: 50px; }
+
+#filter-container {
+  text-align: right;
+  margin-top: 10px;
+  margin-right: 80px; }
+
+.filter-posts {
+  background-color: #7ccccc;
+  color: white;
+  border-radius: 10px; }
+
+.hide {
+  display: none; }
+
+.show {
+  display: block; }
 
 /* The Modal (background) */
 .modal {
@@ -199,7 +216,7 @@ ul.main-post-list {
   /* 15% from the top and centered */
   padding: 20px;
   border: 1px solid #888;
-  width: 80%;
+  width: 50%;
   /* Could be more or less, depending on screen size */ }
 
 /* The Close Button */
@@ -215,6 +232,14 @@ ul.main-post-list {
   text-decoration: none;
   cursor: pointer; }
 
+@media (min-width: 320px) {
+  .feed-img {
+    height: 200px;
+    width: 300px; } }
+@media (min-width: 640px) {
+  .feed-img {
+    height: 300px;
+    width: 100%; } }
 .users-list {
   margin-top: 20px;
   margin-bottom: 30px; }
@@ -224,7 +249,7 @@ ul.main-post-list {
 
 .user-li {
   box-sizing: border-box;
-  border: 1px solid black;
+  border: 1px solid #7ccccc;
   border-radius: 10px;
   margin: 20px auto;
   list-style-type: none;
@@ -234,10 +259,9 @@ ul.main-post-list {
   display: inline-block; }
 
 .user-img {
-  display: inline-block;
   border-radius: 50%;
-  height: 10%;
-  width: 10%;
+  height: 100px;
+  width: 80px;
   margin: 10px;
   box-sizing: border-box; }
 
@@ -247,8 +271,9 @@ ul.main-post-list {
   font-weight: 500; }
 
 .search-users {
+  border: 1px solid #7ccccc;
   margin-top: 20px;
-  width: 80%;
+  width: 100%;
   border-radius: 10px; }
 
 .hide {
@@ -257,10 +282,19 @@ ul.main-post-list {
 .show {
   display: initial; }
 
+@media (min-width: 320px) {
+  .user-img {
+    height: 40px;
+    width: 40px; } }
+@media (min-width: 640px) {
+  .user-img {
+    height: 60px;
+    width: 60px; } }
 .comment-value {
   margin-top: 20px;
   width: 80%;
-  border-radius: 10px; }
+  border-radius: 10px;
+  border: 1px solid #7ccccc; }
 
 .comment-button {
   border-radius: 10px;
@@ -305,6 +339,31 @@ ul.main-post-list {
 .comment-name {
   margin-left: 5px; }
 
+.hide {
+  display: none; }
+
+.show {
+  display: initial; }
+
+@media (min-width: 320px) {
+  .comment-button {
+    margin-top: 10px; }
+
+  .single-img {
+    height: 200px;
+    width: 100% px;
+    border-radius: 10px;
+    margin: 10px; } }
+@media (min-width: 640px) {
+  .single-img {
+    height: 300px;
+    width: 100%;
+    margin: 10px; } }
+@media (min-width: 1008px) {
+  .single-img {
+    height: 400px;
+    width: 100%;
+    margin: 10px; } }
 .profile-photo {
   text-align: center; }
 

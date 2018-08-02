@@ -1,4 +1,4 @@
-export const body = document.querySelector("body");
+const body = document.querySelector("body");
 
 export const createFooter = () => {
 
@@ -8,7 +8,7 @@ export const createFooter = () => {
 
     footer.innerHTML = `
         <div class="container">
-            <p> &#169; Copyright xxx ${date}</p>
+            <p> &#169; Copyright Kristina Butkovic ${date}</p>
         </div>
     `;
     body.appendChild(footer);
