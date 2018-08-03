@@ -1,4 +1,4 @@
-import { get, post } from "./APIService.js";
+import { get, post, deleteData } from "./APIService.js";
 import { postsEndpoint, urlEndpoint } from "../shared/constants.js";
 import { Post } from "../entities/Post.js";
 import { TextPost } from "../entities/TextPost.js";
@@ -13,30 +13,52 @@ class PostService {
             .then(response => {
                 return response.filter(post => {
                     if (post.videoUrl) {
-                        return post.videoUrl.includes("youtube.com/embed")
+                        return post.videoUrl.includes("https://www.youtube.com/embed")
                     }
                     return true
                 })
             })
             .then((response) => {
-
                 return response.map((post) => {
                     switch (post.type) {
                         case "text":
-                            return new TextPost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.text);
+                            return new TextPost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, post.text);
                         case "video":
-                            return new VideoPost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.videoUrl);
+                            return new VideoPost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, post.videoUrl);
                         case "image":
-                            return new ImagePost(post.id, post.date, post.userId, post.userDisplayName, post.type, post.commentsNum, post.imageUrl);
+                            return new ImagePost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, post.imageUrl);
                         default:
                             console.log("no posts to show");
                     }
                 })
-
             })
     }
 
-    selectPostType (type) {
+    // deleteOldPosts() {
+    //     return get(postsEndpoint)
+    //         .then(response => {
+    //             return response.filter(post => {
+    //                 if (post.videoUrl) {
+    //                     return post.videoUrl.includes("https://www.youtube.com/embed")
+    //                 }
+    //                 return true
+    //             })
+    //         })
+    //         .then((oldPosts) => {
+    //             oldPosts
+    //                 .filter((post) => post.userId === 747)
+    //                 .forEach((oldPost) => {
+
+    //                     this.deletePost(oldPost.id)
+    //                         .then((response) => {
+    //                             console.log(response);
+    //                         })
+    //                 })
+
+    //         })
+    // }
+
+    selectPostType(type) {
 
         let url = "";
 
@@ -54,7 +76,6 @@ class PostService {
         }
 
         return url;
-
     }
 
     fetchSinglePost(type, id) {
@@ -63,9 +84,14 @@ class PostService {
         return get(urlEndpoint);
     }
 
-    postNewPost(type, postData) {
+    postNewPost(type, newContent) {
         const url = `${this.selectPostType(type)}`;
-        return post(url, postData);
+        return post(url, newContent);
+    }
+
+    deletePost(id) {
+        const url = `${postsEndpoint}/${id}`;
+        return deleteData(url)
     }
 }
 

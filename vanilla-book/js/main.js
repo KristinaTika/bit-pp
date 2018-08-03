@@ -5,34 +5,53 @@ import { createSinglePost, handlerComments } from "./ui/feedPage/SinglePost.js";
 import { createUsersList, goToUserProfile } from "./ui/peoplePage/UsersList.js";
 import { createFooter } from "./ui/partials/Footer.js";
 import { createMyProfilePage, updProfileHandler } from "./ui/profilePage/MyProfile.js";
+import * as log from "./ui/loginPage/loginPage.js";
 
 const myUsers = [];
 
-const createFeedPage = (event) => {
+const createFeedPage = () => {
 
     data.getPosts()
         .then((posts) => {
             localStorage.setItem("posts", JSON.stringify(posts));
             feedPage.createFeedList(posts);
+            initDeleteOption()
         });
-    setTimeout(initFilterMenu, 2000)
+
+    setTimeout(initFilterMenu, 1000)
     setTimeout(initHandlerNewPost, 1000)
 }
 
 const initHandlerNewPost = () => {
-    
+
     const postButton = document.querySelector("#create-new-post");
-    postButton.addEventListener("click", handlerNewPost)
+    postButton.addEventListener("click", handlerNewPost);
 }
 
 const handlerNewPost = (event) => {
-   const dataToPost = feedPage.newPostHandler(event);
 
-   data.createNewPost(dataToPost.type, dataToPost)
-    .then((response) => {
-        console.log(response); 
-    })
-   
+    const dataToPost = feedPage.newPostHandler(event);
+
+    data.createNewPost(dataToPost.type, dataToPost)
+        .then((response) => {
+           console.log(response);
+        })
+}
+
+const deleteHandler = (event) => {
+
+    const postId = feedPage.deleteHandler(event);
+
+    data.deletePost(postId)
+        .then((response) => {
+            console.log(response);
+        });
+}
+
+const initDeleteOption = () => {
+
+    const deleteButton = document.querySelector(".delete-button");
+    deleteButton.addEventListener("click", deleteHandler);
 }
 
 const initFilterMenu = () => {
@@ -233,11 +252,13 @@ const initProfileModal = () => {
 
 export const init = () => {
 
+    log.loginPage()
     createHeader();
-    createFeedPage();
+
+    // createFeedPage();
     createFooter();
-    initUsersPage();
-    initFeedPage();
-    setTimeout(initSinglePostPage, 1000);
-    initProfilePage();
+    // initUsersPage();
+    // initFeedPage();
+    // setTimeout(initSinglePostPage, 1000);
+    // initProfilePage();
 }

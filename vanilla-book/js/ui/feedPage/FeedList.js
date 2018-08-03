@@ -1,3 +1,6 @@
+import { deletePost} from "../../data/data.js";
+
+
 const root = document.querySelector(".root");
 const postList = document.createElement("ul");
 postList.setAttribute("class", "container main-post-list");
@@ -7,7 +10,8 @@ const createTextPost = (post) => {
     const postLi = document.createElement("li");
     postLi.setAttribute("class", "feed-post text-post");
     postLi.innerHTML = `
-    <div class="container" post-id=${post.id}>    
+    <div class="container" post-id=${post.id}> 
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" />   
         <div class="row" user-id=${post.userId}>
             <div class="post-content">
                 ${post.text}
@@ -32,6 +36,7 @@ const createVideoPost = (post) => {
     postLi.setAttribute("class", "feed-post video-post");
     postLi.innerHTML = `
         <div class="container" post-id=${post.id}>
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" />   
             <div class="row" user-id=${post.userId}>
                 <div class="video-content">
                     <iframe width='100%' height='300' src=${post.videoUrl} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
@@ -56,6 +61,7 @@ const createImagePost = (post) => {
     postLi.setAttribute("class", "feed-post image-post");
     postLi.innerHTML = `
     <div class="container feed-image-post" post-id=${post.id}>
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" />   
         <div class="post-content" user-id=${post.userId}>
             <img src=${post.imageUrl} alt=${post.type} class="feed-img" />
         </div>
@@ -107,31 +113,17 @@ const loadingContent = () => {
     root.appendChild(noFeed);
 }
 
-const openTypesHandler = (event) => {
-
-    const image = document.querySelector(".new-image-post");
-    image.setAttribute("class", "show");
-    const text = document.querySelector(".new-text-post");
-    text.setAttribute("class", "show");
-    const video = document.querySelector(".new-video-post");
-    video.setAttribute("class", "show");
-
-    createModal();
-}
-
-const createModal = (event) => {
+const activateModal = (event) => {
 
     const modal = document.querySelector('#myModal');
-    const btns = document.querySelectorAll(".myBtn");
-    const span = document.getElementsByClassName("close")[0];
-    btns.forEach((btn) => {
-        btn.addEventListener("click", () => {
-            modal.style.display = "block";
-        });
-    });
+    const span = document.querySelector(".close");
 
-    span.addEventListener("click", () => {
-        modal.style.display = "none";
+    modal.style.display = "block";
+
+    window.addEventListener("click", (event) => {
+        if (event.target.className === "close") {
+            modal.style.display = "none";
+        }
     });
 
     initNewPostHandler();
@@ -141,63 +133,27 @@ const createNewPostButton = () => {
 
     const createButton = document.createElement("div");
     createButton.setAttribute("id", "create-post-button");
-
+    createButton.setAttribute("class", "myBtn");
     createButton.innerHTML = `
         <img src="https://png.icons8.com/ios/2x/plus.png" alt="create new post" class="img-post-button" />
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <span class="close">X</span>
+                <div class="modal-header">
+                    <h2>New Post</h2>
+                </div>
+                <div class="modal-body">
+                   <input type="text" id="post-value" placeholder="What's on your mind?" />  
+                </div>
+                 <div class="modal-footer">
+                   <input type="submit" value="Post" id="create-new-post"/>
+                </div>
+            </div>
+        </div>
     `;
     root.prepend(createButton);
-
-    const imgDiv = document.createElement("div");
-    imgDiv.setAttribute("class", "hide new-image-post");
-    imgDiv.innerHTML = `
-    <button class="myBtn create-image">Image</button>
-     `;
-
-    createButton.prepend(imgDiv);
-
-    const videoDiv = document.createElement("div");
-    videoDiv.setAttribute("class", "hide new-video-post");
-    videoDiv.innerHTML = `
-    <button class="myBtn create-video">Video</button>
-     `;
-
-    createButton.prepend(videoDiv);
-
-    const textDiv = document.createElement("div");
-    textDiv.setAttribute("class", "hide new-text-post");
-    textDiv.innerHTML = `
-    <button class="myBtn create-text">Text</button>
-    <div id="myModal" class="modal">
     
-    <div class="modal-content">
-    <span class="close">&times;</span>
-                <div class="modal-header">
-                <h2>New Post</h2>
-            </div>
-            <div class="modal-body">
-               <input type="text" placeholder="What's on your mind?" id="post-value" />  
-            </div>
-             <div class="modal-footer">
-               <input type="submit" value="Post" id="create-new-post" />
-            </div>
-    </div>
-     `;
-
-    createButton.prepend(textDiv);
 }
-
-export const newPostHandler = (event) => {
-
-    event.preventDefault();
-
-    const inputValue = document.querySelector("#post-value");
-    const value = inputValue.value;
-    const dataToPost = validatePost(value)
-
-    return dataToPost;
-}
-
-
 
 const validatePost = (value) => {
 
@@ -208,7 +164,7 @@ const validatePost = (value) => {
         return dataToPost = {
             "videoUrl": value,
             id: user.id,
-            dateCreated: "123",
+            date: Date.now(),
             userDisplayName: user.name,
             type: "video",
             commentsNum: user.commentsCount
@@ -218,7 +174,7 @@ const validatePost = (value) => {
         return dataToPost = {
             "imageUrl": value,
             id: user.id,
-            dateCreated: "123",
+            date: Date.now(),
             userDisplayName: user.name,
             type: "image",
             commentsNum: user.commentsCount
@@ -227,12 +183,31 @@ const validatePost = (value) => {
         return dataToPost = {
             "text": value,
             id: user.id,
-            dateCreated: "123",
+            date: Date.now(),
             userDisplayName: user.name,
             type: "text",
             commentsNum: user.commentsCount
         }
     }
+}
+
+export const deleteHandler = (event) => { 
+    
+    event.preventDefault();
+    const postId = event.target.getAttribute("post-id");
+
+    return postId;
+}
+
+export const newPostHandler = (event) => {
+    
+    event.preventDefault();
+    
+    const inputValue = document.querySelector("#post-value");
+    const value = inputValue.value;
+    const dataToPost = validatePost(value);
+
+    return dataToPost;
 }
 
 export const initNewPostHandler = () => {
@@ -269,8 +244,17 @@ export const createFeedList = (posts) => {
     createFilterMenu();
 
     const createButton = document.querySelector("#create-post-button");
-    createButton.addEventListener("mouseover", openTypesHandler);
+    createButton.addEventListener("click", activateModal);
+
+    // const deleteButton = document.querySelector(".delete-button");
+    // deleteButton.addEventListener("click", deleteHandler);
 }
+
+// export const initDeleteHandler = () => {
+
+//     const deleteButton = document.querySelector(".delete-button");
+//     deleteButton.addEventListener("click", deleteHandler);
+// }
 
 export const filterTextPost = () => {
 

@@ -62,7 +62,11 @@ export const deleteData = (url) => {
     return fetch(url, {
 
         method: 'DELETE',
-        headers: getHeaders()
+        headers: {
+            'Content-Type': 'application/json',
+            'sessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE',
+            'Key': 'bitbookdev',
+        },
     })
 }
 

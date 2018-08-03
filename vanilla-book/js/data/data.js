@@ -10,6 +10,14 @@ export const getSinglePost = (type, id) => {
     return postService.fetchSinglePost(type, id);
 }
 
+export const createNewPost = (type, newContent) => {
+    return postService.postNewPost(type, newContent);
+}
+
+export const deletePost = (id) => {
+    return postService.deletePost(id);
+}
+
 export const getComments = (id) => {
     return commentService.fetchComments(id);
 }
@@ -30,10 +38,10 @@ export const getProfile = () => {
     return userService.fetchProfile();
 }
 
-export const createNewPost = (type, postData) => {
-    return postService.postNewPost(type, postData);
-}
-
 export const updateProfile = (data) => {
     return userService.updateProfile(data);
+}
+
+export const deleteOldPosts = () => {
+    return postService.deleteOldPosts();
 }
