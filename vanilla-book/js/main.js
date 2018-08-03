@@ -9,6 +9,50 @@ import * as log from "./ui/loginPage/loginPage.js";
 
 const myUsers = [];
 
+const initLoginPage = () => {
+
+    log.loginPage();
+    setTimeout(initLoginForm, 1000);
+}
+
+const initLoginForm = () => {
+
+    const loginButton = document.querySelector(".login-button");
+    loginButton.addEventListener("click", loginHandler);
+
+    const registerButton = document.querySelector(".register-button");
+    registerButton.addEventListener("click", registerHandler);
+}
+
+const registerHandler = (event) => {
+
+    const registerData = log.registerHandler(event);
+    console.log(registerData);
+
+    data.registerUser(registerData)
+        .then((response) => {
+            response === true ? initLoginPage() : "";
+        })
+}
+
+const loginHandler = (event) => {
+
+    const loginData = log.loginHandler(event);
+
+    data.loginUser(loginData)
+        .then((response) => {
+            response === true ? initPage() : "";
+        })
+}
+
+const initPage = () => {
+    createFeedPage();
+    initUsersPage();
+    initFeedPage();
+    setTimeout(initSinglePostPage, 1000);
+    initProfilePage();
+}
+
 const createFeedPage = () => {
 
     data.getPosts()
@@ -34,7 +78,7 @@ const handlerNewPost = (event) => {
 
     data.createNewPost(dataToPost.type, dataToPost)
         .then((response) => {
-           console.log(response);
+            initPage()
         })
 }
 
@@ -250,15 +294,12 @@ const initProfileModal = () => {
     update.addEventListener("click", updateProfileHandler);
 }
 
+
+
 export const init = () => {
 
-    log.loginPage()
+    initLoginPage();
     createHeader();
-
-    // createFeedPage();
     createFooter();
-    // initUsersPage();
-    // initFeedPage();
-    // setTimeout(initSinglePostPage, 1000);
-    // initProfilePage();
+
 }

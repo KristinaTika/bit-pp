@@ -1,6 +1,7 @@
 import { postService } from "./services/postService.js";
 import { userService } from "./services/userService.js";
 import { commentService } from "./services/commentService.js";
+import { loginService } from "./services/loginService.js";
 
 export const getPosts = () => {
     return postService.fetchPosts();
@@ -31,7 +32,7 @@ export const getUsers = () => {
 }
 
 export const getSingleUser = (id) => {
-    return userService.fetchSingleUser(id)    
+    return userService.fetchSingleUser(id)
 }
 
 export const getProfile = () => {
@@ -44,4 +45,12 @@ export const updateProfile = (data) => {
 
 export const deleteOldPosts = () => {
     return postService.deleteOldPosts();
+}
+
+export const loginUser = (data) => {
+    return loginService.loginUser(data);
+}
+
+export const registerUser = (data) => {
+    return loginService.registerUser(data);
 }
