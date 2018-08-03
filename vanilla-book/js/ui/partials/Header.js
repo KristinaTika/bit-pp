@@ -20,6 +20,7 @@ export const createHeader = () => {
                         <div class="feed-page">Feed</div>
                         <div class="people-page">People</div>  
                         <div class="profile-page">Profile</div>  
+                        <div class="logout">Logout</div>  
                 </div>
             </nav>
         </div>
@@ -29,6 +30,7 @@ export const createHeader = () => {
             <li class="mobile-item feed-page">Feed</li>
             <li class="mobile-item people-page">People</li>
             <li class="mobile-item profile-page">Profile</li>
+            <li class="mobile-item logout">Logout</li>
         </ul>
     </nav>
     `;

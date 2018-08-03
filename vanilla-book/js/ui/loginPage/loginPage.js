@@ -1,59 +1,67 @@
 const root = document.querySelector(".root");
+const body = document.querySelector("body");
+
+export const createLoginHeader = () => {
+
+    const header = document.createElement("header");
+    header.innerHTML = `
+        <header id="welcome-header">
+             Virtual life
+        </header>
+    `;
+    body.insertBefore(header, body.firstChild);
+}
 
 export const loginPage = () => {
 
     root.innerHTML = "";
 
-    const feed = document.querySelectorAll(".feed-page");
-
-    feed.forEach((f) => {
-        f.setAttribute("class", "hide")
-    })
-    const people = document.querySelectorAll(".people-page");
-    people.forEach((p) => {
-        p.setAttribute("class", "hide")
-    })
-    const profile = document.querySelectorAll(".profile-page");
-    profile.forEach((pr) => {
-        pr.setAttribute("class", "hide")
-    })
     const login = document.createElement("div");
     login.setAttribute("class", "login-page");
     login.innerHTML = `
-        <h1 class="welcome-title"> Virtual life Login </h1>
-        <p class="welcome-text"> Welcome to Virtual life. Create an account or log in to our social network. Connect with friends, family and other people you know. Share photos and videos and get updates.</p>
-        <div class="login-form">
-            <span class="login-title">Login</span>
-            <span class="register-title">Register</span>
-            <p>Username</p>
-            <input type="text" placeholder="username" id="username" required />
-            <p>Password</p>
-            <input type="password" placeholder="password" id="login-password" required />
-            <input type="button" class="login-button" value="login" />
-        </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 welcome-div">
+                <h1 class="welcome-title"> Virtual life Login </h1>
+                <p class="welcome-text"> Welcome to Virtual life. Create an account or log in to our social network.</p> <p>Connect with friends, family and other people you know.</p>
+            <p>Share photos and videos and get updates.</p>
+            </div>
+            <div class="login-form">
+                <div class="titles">
+                    <span class="login-title">Login</span>
+                    <span class="register-title">Register</span>
+                </div>
+                <div class="form-inputs" id="login-inputs">
+                    <p><b>Username</b></p>
+                    <input type="text" placeholder="enter username" id="username" required />
+                    <p><b>Password</b></p>
+                    <input type="password" placeholder="enter password" id="login-password" required />
+                    <input type="button" class="login-button" value="login" />
+                </div>
 
-        <div class="register-form">
-            <span id="login-title">Login</span>
-            <span class="register-title">Register</span>
-            <p>Full Name</p>
-            <input type="text" placeholder="Full Name" id="full-name" required/>
-            <p>Username</p>
-            <input type="text" placeholder="Username" id="nickname" required/>
-            <p>Email</p>
-            <input type="email" placeholder="Email Address" id="email-address" required/>
-            <p>Password </p>
-            <input type="password" placeholder="password" id="register-password" required/>
-            <input type="button" class="register-button" value="register" />
+                <div class="form-inputs" id="register-inputs">
+                    <p><b>Full Name</b></p>
+                    <input type="text" placeholder="Full Name" id="full-name" required/>
+                    <p><b>Username</b></p>
+                    <input type="text" placeholder="Username" id="nickname" required/>
+                    <p><b>Email</b></p>
+                    <input type="email" placeholder="Email Address" id="email-address" required/>
+                    <p><b>Password</b></p>
+                    <input type="password" placeholder="password" id="register-password" required/>
+                    <input type="button" class="register-button" value="register" />
+                </div>     
+            </div>
+
         </div>
+    </div>
     `;
     root.appendChild(login);
 
-    const register = document.querySelector(".register-form");
-    register.style.display = "none";
-
-    const reg = document.querySelector(".register-title");
-    reg.addEventListener("click", changeToRegisterHandler);
-
+    const registerForm = document.querySelector("#register-inputs");
+    registerForm.style.display = "none";
+   
+    const register = document.querySelector(".register-title");
+    register.addEventListener("click", changeToRegisterHandler);
 }
 
 export const loginHandler = (event) => {
@@ -65,36 +73,34 @@ export const loginHandler = (event) => {
     const passwordInput = document.querySelector("#login-password");
     const password = passwordInput.value;
 
+    const header = document.querySelector("#welcome-header");
+    header.style.display = "none";
+
     return {
         username,
         password
     }
 }
 
-export const changeToRegisterHandler = (event) => {
+const changeToRegisterHandler = (event) => {
 
-    const login = document.querySelector(".login-form");
+    const login = document.querySelector("#login-inputs");
     login.style.display = "none";
 
-    const register = document.querySelector(".register-form");
+    const register = document.querySelector("#register-inputs");
     register.style.display = "block";
-
-    // const registerButton = document.querySelector(".register-button");
-    // registerButton.addEventListener("click", registerHandler);
-
-    const loginSpan = document.querySelector("#login-title");
-    console.log(loginSpan);
-
+    
+    const loginSpan = document.querySelector(".login-title");
     loginSpan.addEventListener("click", handler);
 }
 
 const handler = (event) => {
-    console.log(event);
-    const loginSpan = document.querySelector(".login-title");
-
-    const register = document.querySelector(".register-form");
-    register.style.display = "none";
+ 
+    const loginSpan = document.querySelector("#login-inputs");
     loginSpan.style.display = "block";
+    
+    const register = document.querySelector("#register-inputs");
+    register.style.display = "none";
 }
 
 export const registerHandler = (event) => {
@@ -102,7 +108,7 @@ export const registerHandler = (event) => {
     event.preventDefault();
 
     const fullNameInput = document.querySelector("#full-name");
-    const fullName = fullNameInput.value;
+    const name = fullNameInput.value;
 
     const usernameInput = document.querySelector("#nickname");
     const username = usernameInput.value;
@@ -116,7 +122,7 @@ export const registerHandler = (event) => {
     return {
         username,
         password,
-        fullName,
+        name,
         email
     }
 }

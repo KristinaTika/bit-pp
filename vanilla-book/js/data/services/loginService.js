@@ -13,13 +13,9 @@ class LoginService {
     registerUser(data) {
         return post(registerEndpoint, data)
             .then((response) => {
-                console.log(response);
-                return response.json()
-
-                // return response.status === 200 ? true : false
+                return response.status === 200 ? true : false
             })
     }
-
 }
 
 export const loginService = new LoginService;

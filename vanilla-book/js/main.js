@@ -11,6 +11,7 @@ const myUsers = [];
 
 const initLoginPage = () => {
 
+    log.createLoginHeader();
     log.loginPage();
     setTimeout(initLoginForm, 1000);
 }
@@ -29,10 +30,21 @@ const registerHandler = (event) => {
     const registerData = log.registerHandler(event);
     console.log(registerData);
 
+    const dataToRegister = {
+        username: registerData.username,
+        password: registerData.password,
+
+    }
+
     data.registerUser(registerData)
         .then((response) => {
-            response === true ? initLoginPage() : "";
-        })
+            response === true ? initAfterRegister() : "";
+        })  
+}
+
+const initAfterRegister = () => {
+    log.loginPage();
+    setTimeout(initLoginForm, 1000);
 }
 
 const loginHandler = (event) => {
@@ -46,6 +58,7 @@ const loginHandler = (event) => {
 }
 
 const initPage = () => {
+    createHeader();
     createFeedPage();
     initUsersPage();
     initFeedPage();
@@ -64,6 +77,19 @@ const createFeedPage = () => {
 
     setTimeout(initFilterMenu, 1000)
     setTimeout(initHandlerNewPost, 1000)
+
+    const logouts = document.querySelectorAll(".logout");
+    logouts.forEach((logout) => {
+        logout.addEventListener("click", logoutHandler);
+    })
+}
+
+const logoutHandler = (event) => {
+    
+    const header = document.querySelector(".header");
+    header.style.display = "none";
+
+    initLoginPage();
 }
 
 const initHandlerNewPost = () => {
@@ -299,7 +325,6 @@ const initProfileModal = () => {
 export const init = () => {
 
     initLoginPage();
-    createHeader();
     createFooter();
 
 }
