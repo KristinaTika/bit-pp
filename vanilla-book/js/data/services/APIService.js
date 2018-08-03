@@ -38,8 +38,7 @@ export const post = (url, newContent) => {
             'Key': 'bitbookdev',
         },
     }
-    return fetch(url, postData)
-
+    return fetch(url, postData);
 }
 
 export const put = (url, data) => {

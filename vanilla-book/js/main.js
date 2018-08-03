@@ -6,6 +6,7 @@ import { createUsersList, goToUserProfile } from "./ui/peoplePage/UsersList.js";
 import { createFooter } from "./ui/partials/Footer.js";
 import { createMyProfilePage, updProfileHandler } from "./ui/profilePage/MyProfile.js";
 import * as log from "./ui/loginPage/loginPage.js";
+import { userService } from "./data/services/userService.js";
 
 const myUsers = [];
 
@@ -28,18 +29,11 @@ const initLoginForm = () => {
 const registerHandler = (event) => {
 
     const registerData = log.registerHandler(event);
-    console.log(registerData);
-
-    const dataToRegister = {
-        username: registerData.username,
-        password: registerData.password,
-
-    }
 
     data.registerUser(registerData)
         .then((response) => {
             response === true ? initAfterRegister() : "";
-        })  
+        })
 }
 
 const initAfterRegister = () => {
@@ -53,8 +47,23 @@ const loginHandler = (event) => {
 
     data.loginUser(loginData)
         .then((response) => {
+            console.log(response);
             response === true ? initPage() : "";
         })
+        //     if (response.error) {
+        //         alert(response.error.message)
+        //     } else if (!this.state.error) {
+        //         localStorage.setItem('sessionId', response.sessionId);
+        //         this.props.onSuccessfulLogin();
+        //     }
+        // })
+        // .then(() => {
+        //     userService.fetchProfile()
+        //         .then((response) => {
+        //             window.localStorage.setItem("userId", response.userId);
+        //         })
+        // })
+
 }
 
 const initPage = () => {
@@ -85,7 +94,7 @@ const createFeedPage = () => {
 }
 
 const logoutHandler = (event) => {
-    
+
     const header = document.querySelector(".header");
     header.style.display = "none";
 

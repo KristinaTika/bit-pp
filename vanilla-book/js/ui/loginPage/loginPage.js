@@ -47,7 +47,7 @@ export const loginPage = () => {
                     <p><b>Email</b></p>
                     <input type="email" placeholder="Email Address" id="email-address" required/>
                     <p><b>Password</b></p>
-                    <input type="password" placeholder="password" id="register-password" required/>
+                    <input type="password" placeholder="At least 6 characters long" id="register-password" required/>
                     <input type="button" class="register-button" value="register" />
                 </div>     
             </div>
@@ -59,7 +59,7 @@ export const loginPage = () => {
 
     const registerForm = document.querySelector("#register-inputs");
     registerForm.style.display = "none";
-   
+
     const register = document.querySelector(".register-title");
     register.addEventListener("click", changeToRegisterHandler);
 }
@@ -89,16 +89,16 @@ const changeToRegisterHandler = (event) => {
 
     const register = document.querySelector("#register-inputs");
     register.style.display = "block";
-    
+
     const loginSpan = document.querySelector(".login-title");
     loginSpan.addEventListener("click", handler);
 }
 
 const handler = (event) => {
- 
+
     const loginSpan = document.querySelector("#login-inputs");
     loginSpan.style.display = "block";
-    
+
     const register = document.querySelector("#register-inputs");
     register.style.display = "none";
 }
@@ -113,11 +113,9 @@ export const registerHandler = (event) => {
     const usernameInput = document.querySelector("#nickname");
     const username = usernameInput.value;
 
-    const emailInput = document.querySelector("#email-address");
-    const email = emailInput.value;
-
-    const passwordInput = document.querySelector("#register-password");
-    const password = passwordInput.value;
+    
+    const email = validateEmail();
+    const password = validatePassword();
 
     return {
         username,
@@ -127,7 +125,29 @@ export const registerHandler = (event) => {
     }
 }
 
+const validateEmail = () => {
 
+    const email = document.querySelector("#email-address");
+    const mailFormat = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+
+    if (!email.value.match(mailFormat)) {
+        alert("Please provide a valid email address!");
+        email.focus;
+        return false;
+    } 
+    return email.value;
+}
+
+const validatePassword = () => {
+
+    const passwordInput = document.querySelector("#register-password");
+    const password = passwordInput.value;
+    if(password.length > 5) {
+        return password;
+    }
+    alert("Password has to be at least 6 characters long!")
+    return false;
+}
 
 
 
