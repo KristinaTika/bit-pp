@@ -158,6 +158,7 @@ export const handlerComments = (event) => {
         return;
     } else {
         const singlePost = JSON.parse(localStorage.getItem("post"));
+        const loggedUser = JSON.parse(localStorage.getItem("user"));
         const userId = singlePost.userId;
         const postId = singlePost.id;
 
@@ -166,7 +167,7 @@ export const handlerComments = (event) => {
             dateCreated: Date.now,
             body: inputValue,
             postId: postId,
-            authorName: "dads",
+            authorName: loggedUser.name,
             authorId: userId
         }
 

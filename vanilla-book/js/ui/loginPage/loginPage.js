@@ -84,6 +84,9 @@ export const loginHandler = (event) => {
 
 const changeToRegisterHandler = (event) => {
 
+    const title = document.querySelector(".welcome-title"); 
+    title.textContent = "Virtual Life Register";
+
     const login = document.querySelector("#login-inputs");
     login.style.display = "none";
 
@@ -101,6 +104,9 @@ const handler = (event) => {
 
     const register = document.querySelector("#register-inputs");
     register.style.display = "none";
+
+    const title = document.querySelector(".welcome-title");
+    title.textContent = "Virtual Life Login";
 }
 
 export const registerHandler = (event) => {

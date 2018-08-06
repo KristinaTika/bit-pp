@@ -54,3 +54,7 @@ export const loginUser = (data) => {
 export const registerUser = (data) => {
     return loginService.registerUser(data);
 }
+
+export const AddLikes = (post) => {
+    post.likesNum ++;
+}

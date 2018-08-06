@@ -4,26 +4,6 @@ const loggedUser = JSON.parse(localStorage.getItem("user-profile"));
 const postList = document.createElement("ul");
 postList.setAttribute("class", "container main-post-list");
 
-
-let counter = 0;
-
-const likesHandler = (event) => {
-
-    counter++;
-
-    const postId = event.target.getAttribute("post-id");
-    const parentId = event.target.parentElement.getAttribute("post-id");
-    
-    // localStorage.setItem("likes", JSON.stringify(counter))
-    // let myLikes = JSON.parse(localStorage.getItem("likes"));
-
-    let likes = document.querySelectorAll(".likes-counter");
-    likes.forEach((like) => {
-        return postId === parentId ?like.textContent = counter : counter = 0;
-
-    })
-}
-
 const createTextPost = (post) => {
 
     const postLi = document.createElement("li");
@@ -41,7 +21,7 @@ const createTextPost = (post) => {
                 ${post.commentsNum} comments 
             </span>
             <span class="post-type"> 
-                <i class="fas fa-thumbs-up likes-counter" post-id=${post.id}></i> 
+                <i class="fas fa-thumbs-up likes-counter" post-id=${post.id}>${post.likesNum}</i> 
             </span>
         </div>
         <hr />
@@ -57,11 +37,6 @@ const createTextPost = (post) => {
     </div>
     `;
     postList.appendChild(postLi);
-
-    const likes = document.querySelectorAll(".like-button");
-    likes.forEach((like) => {
-        like.addEventListener("click", likesHandler);
-    })
 }
 
 const createVideoPost = (post) => {
@@ -77,12 +52,22 @@ const createVideoPost = (post) => {
                 </div>
             </div>
             <div class="col-12">
-                <span class="post-type">
-                    ${post.type} post 
-                </span>
-                <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
+                <span class="post-event comments-color" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
                     ${post.commentsNum} comments
-                </a>
+                </span>
+                <span class="post-type"> 
+                    <i class="fas fa-thumbs-up likes-counter" post-id=${post.id}>${post.likesNum}</i> 
+                </span>
+            </div>
+            <hr />
+            <br />
+            <div post-id=${post.id}>
+                <span class="like-button" post-id=${post.id}>
+                    <i class="far fa-thumbs-up"></i> Like
+                </span>
+                <span class="post-event text-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}>
+                    <i class="far fa-comment" post-id=${post.id} post-type=${post.type} user-id=${post.userId}></i> Comment
+                </span>
             </div>
         </div>
      `;
@@ -99,13 +84,23 @@ const createImagePost = (post) => {
         <div class="post-content" user-id=${post.userId}>
             <img src=${post.imageUrl} alt=${post.type} class="feed-img" />
         </div>
-        <div class="post-event">
-            <span class="post-type">
-                ${post.type} post 
-            </span>
-            <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
+        <div class="post-event">           
+            <span class="post-event comments-color" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
                 ${post.commentsNum} comments 
-            </a>
+            </span>
+            <span class="post-type"> 
+                <i class="fas fa-thumbs-up likes-counter" post-id=${post.id}>${post.likesNum}</i> 
+            </span>
+        </div>
+        <hr />
+        <br />
+        <div post-id=${post.id}>
+            <span class="like-button" post-id=${post.id}>
+                <i class="far fa-thumbs-up"></i> Like
+            </span>
+            <span class="post-event text-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}>
+                <i class="far fa-comment" post-id=${post.id} post-type=${post.type} user-id=${post.userId}></i> Comment
+            </span>
         </div>
     </div>
     `;
@@ -245,7 +240,7 @@ export const createFeedList = (posts) => {
 
     root.innerHTML = "";
     root.appendChild(postList);
-    postList.innerHTML="";
+    postList.innerHTML = "";
 
     createNewPostButton();
 

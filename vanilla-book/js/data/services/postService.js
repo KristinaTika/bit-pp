@@ -19,14 +19,15 @@ class PostService {
                 })
             })
             .then((response) => {
+                let likes = 0;
                 return response.map((post) => {
                     switch (post.type) {
                         case "text":
-                            return new TextPost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, post.text);
+                            return new TextPost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, likes, post.text);
                         case "video":
-                            return new VideoPost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, post.videoUrl);
+                            return new VideoPost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, likes, post.videoUrl);
                         case "image":
-                            return new ImagePost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, post.imageUrl);
+                            return new ImagePost(post.id, post.dateCreated, post.userId, post.userDisplayName, post.type, post.commentsNum, likes, post.imageUrl);
                         default:
                             console.log("no posts to show");
                     }

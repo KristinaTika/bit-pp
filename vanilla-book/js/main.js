@@ -6,9 +6,17 @@ import { createUsersList, goToUserProfile } from "./ui/peoplePage/UsersList.js";
 import { createFooter } from "./ui/partials/Footer.js";
 import { createMyProfilePage, updProfileHandler } from "./ui/profilePage/MyProfile.js";
 import * as log from "./ui/loginPage/loginPage.js";
-import { userService } from "./data/services/userService.js";
 
 const myUsers = [];
+const myPosts = [];
+
+const filterMyPosts = (posts, postId) => {
+    let filteredPost = posts.filter((post) => {
+        return post.id == postId;
+    });
+
+    return filteredPost[0];
+}
 
 const initLoginPage = () => {
 
@@ -53,8 +61,6 @@ const registerHandler = (event) => {
                 alert(response.error.message);
             } else {
                 const header = document.querySelector("#welcome-header");
-                console.log(header);
-
                 if (header === null) {
                     log.createLoginHeader();
                     initAfterRegister();
@@ -84,6 +90,7 @@ const loginHandler = (event) => {
     data.loginUser(loginData)
         .then((response) => {
             return response.json()
+            log.createLoginHeader();
         })
         .then(response => {
             if (response.error) {
@@ -100,7 +107,6 @@ const initPage = () => {
 
     data.getProfile()
         .then((profile) => {
-            localStorage.setItem("user-id", profile.id);
             localStorage.setItem("user-profile", JSON.stringify(profile));
         })
 
@@ -117,16 +123,47 @@ const createFeedPage = () => {
     data.getPosts()
         .then((posts) => {
             feedPage.createFeedList(posts);
+            addLikeListener();
+            posts.forEach((post) => {
+                myPosts.push(post);
+            })
             localStorage.setItem("posts", JSON.stringify(posts));
             initDeleteOption();
         });
-
-    setTimeout(initFilterMenu, 2000)
-    setTimeout(initHandlerNewPost, 2000)
+    setTimeout(initSinglePostPage, 1000);
+    setTimeout(initFilterMenu, 1000);
+    setTimeout(initHandlerNewPost, 1000);
 
     const logouts = document.querySelectorAll(".logout");
     logouts.forEach((logout) => {
         logout.addEventListener("click", logoutHandler);
+    })
+}
+
+const likesHandler = (event) => {
+    console.log(event);
+
+    const clickedPost = event.target.getAttribute("post-id");
+    const parentId = event.target.parentElement.getAttribute("post-id");
+
+    let result = filterMyPosts(myPosts, clickedPost);
+    clickedPost == parentId ? data.AddLikes(result) : "";
+
+    infiniteAddLikes();
+}
+
+const infiniteAddLikes = () => {
+    feedPage.createFeedList(myPosts);
+    // createFeedPage();
+    addLikeListener();
+    itSinglePostPage();
+    initHandlerNewPost();
+}
+
+const addLikeListener = () => {
+    const likes = document.querySelectorAll(".like-button");
+    likes.forEach((like) => {
+        like.addEventListener("click", likesHandler);
     })
 }
 
@@ -155,17 +192,16 @@ const handlerNewPost = (event) => {
 
     data.createNewPost(dataToPost.type, dataToPost)
         .then((response) => {
-            console.log(response);
             bla();
         });
 }
 
 const bla = () => {
     createFeedPage();
-            initUsersPage();
-            initFeedPage();
-            setTimeout(initSinglePostPage, 1000);
-            initProfilePage();
+    initUsersPage();
+    initFeedPage();
+    setTimeout(initSinglePostPage, 1000);
+    initProfilePage();
 }
 
 const deleteHandler = (event) => {
@@ -180,8 +216,10 @@ const deleteHandler = (event) => {
 
 const initDeleteOption = () => {
 
-    const deleteButton = document.querySelector(".delete-button");
-    deleteButton.addEventListener("click", deleteHandler);
+    const deleteButtons = document.querySelectorAll(".delete-button");
+    deleteButtons.forEach((deleteButton) => {
+        deleteButton.addEventListener("click", deleteHandler);
+    })
 }
 
 const initFilterMenu = () => {
@@ -286,7 +324,6 @@ const initUsersPage = () => {
 const singlePostHandler = (event) => {
 
     event.preventDefault();
-
     const postId = event.target.getAttribute("post-id");
     const type = event.target.getAttribute("post-type");
 
@@ -296,7 +333,7 @@ const singlePostHandler = (event) => {
             getCommentsHandler(post);
         });
 
-    setTimeout(postNewSingleComment, 2000);
+    setTimeout(postNewSingleComment, 1000);
 }
 
 const getCommentsHandler = (post) => {
@@ -312,6 +349,7 @@ const getCommentsHandler = (post) => {
                     .then((user) => {
                         localStorage.setItem("user", JSON.stringify(user));
                         createSinglePost(post);
+                        postNewSingleComment();
                     });
             });
         });
