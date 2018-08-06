@@ -65,8 +65,8 @@ export const updProfileHandler = (event) => {
     const about = aboutInput.value;
     const photoInput = document.querySelector("#update-photo-link");
     const photo = photoInput.value;
-    const profile = JSON.parse(localStorage.getItem("profile"));
-
+    const profile = JSON.parse(localStorage.getItem("user-profile"));
+    
     const checkName = (name) => {
         if (name === "") {
             return profile.name;

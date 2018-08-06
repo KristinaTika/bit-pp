@@ -1,9 +1,28 @@
-import { deletePost} from "../../data/data.js";
-
-
 const root = document.querySelector(".root");
+const loggedUser = JSON.parse(localStorage.getItem("user-profile"));
+
 const postList = document.createElement("ul");
 postList.setAttribute("class", "container main-post-list");
+
+
+let counter = 0;
+
+const likesHandler = (event) => {
+
+    counter++;
+
+    const postId = event.target.getAttribute("post-id");
+    const parentId = event.target.parentElement.getAttribute("post-id");
+    
+    // localStorage.setItem("likes", JSON.stringify(counter))
+    // let myLikes = JSON.parse(localStorage.getItem("likes"));
+
+    let likes = document.querySelectorAll(".likes-counter");
+    likes.forEach((like) => {
+        return postId === parentId ?like.textContent = counter : counter = 0;
+
+    })
+}
 
 const createTextPost = (post) => {
 
@@ -11,23 +30,38 @@ const createTextPost = (post) => {
     postLi.setAttribute("class", "feed-post text-post");
     postLi.innerHTML = `
     <div class="container" post-id=${post.id}> 
-        <input type="button" post-id=${post.id} class="delete-button" value="delete" />   
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" id="${loggedUser.id === post.userId ? "" : "hide"}" />   
         <div class="row" user-id=${post.userId}>
             <div class="post-content">
                 ${post.text}
             </div>
         </div>
-        <div>
-            <span class="post-type"> 
-                ${post.type} post 
-            </span>
-           <a href="#" class="post-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
+        <div class="post-info">
+            <span class="comments-color" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
                 ${post.commentsNum} comments 
-            </a>
+            </span>
+            <span class="post-type"> 
+                <i class="fas fa-thumbs-up likes-counter" post-id=${post.id}></i> 
+            </span>
+        </div>
+        <hr />
+        <br />
+        <div post-id=${post.id}>
+            <span class="like-button" post-id=${post.id}>
+                <i class="far fa-thumbs-up"></i> Like
+            </span>
+            <span class="post-event text-event" post-id=${post.id} post-type=${post.type} user-id=${post.userId}>
+                <i class="far fa-comment" post-id=${post.id} post-type=${post.type} user-id=${post.userId}></i> Comment
+            </span>
         </div>
     </div>
     `;
     postList.appendChild(postLi);
+
+    const likes = document.querySelectorAll(".like-button");
+    likes.forEach((like) => {
+        like.addEventListener("click", likesHandler);
+    })
 }
 
 const createVideoPost = (post) => {
@@ -36,7 +70,7 @@ const createVideoPost = (post) => {
     postLi.setAttribute("class", "feed-post video-post");
     postLi.innerHTML = `
         <div class="container" post-id=${post.id}>
-        <input type="button" post-id=${post.id} class="delete-button" value="delete" />   
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" id="${loggedUser.id === post.userId ? "" : "hide"}" />   
             <div class="row" user-id=${post.userId}>
                 <div class="video-content">
                     <iframe width='100%' height='300' src=${post.videoUrl} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
@@ -61,7 +95,7 @@ const createImagePost = (post) => {
     postLi.setAttribute("class", "feed-post image-post");
     postLi.innerHTML = `
     <div class="container feed-image-post" post-id=${post.id}>
-        <input type="button" post-id=${post.id} class="delete-button" value="delete" />   
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" id="${loggedUser.id === post.userId ? "" : "hide"}" />   
         <div class="post-content" user-id=${post.userId}>
             <img src=${post.imageUrl} alt=${post.type} class="feed-img" />
         </div>
@@ -125,8 +159,6 @@ const activateModal = (event) => {
             modal.style.display = "none";
         }
     });
-
-    initNewPostHandler();
 }
 
 const createNewPostButton = () => {
@@ -135,7 +167,7 @@ const createNewPostButton = () => {
     createButton.setAttribute("id", "create-post-button");
     createButton.setAttribute("class", "myBtn");
     createButton.innerHTML = `
-        <img src="https://png.icons8.com/ios/2x/plus.png" alt="create new post" class="img-post-button" />
+        <span alt="create new post" > <i class="fas fa-plus-circle"></i> </span>
         <div id="myModal" class="modal">
             <div class="modal-content">
                 <span class="close">X</span>
@@ -152,12 +184,11 @@ const createNewPostButton = () => {
         </div>
     `;
     root.prepend(createButton);
-    
 }
 
 const validatePost = (value) => {
 
-    const user = JSON.parse(localStorage.getItem("profile"));
+    const user = JSON.parse(localStorage.getItem("user-profile"));
     let dataToPost = {};
 
     if (value.includes("https://www.youtube.com/")) {
@@ -191,8 +222,8 @@ const validatePost = (value) => {
     }
 }
 
-export const deleteHandler = (event) => { 
-    
+export const deleteHandler = (event) => {
+
     event.preventDefault();
     const postId = event.target.getAttribute("post-id");
 
@@ -200,9 +231,9 @@ export const deleteHandler = (event) => {
 }
 
 export const newPostHandler = (event) => {
-    
+
     event.preventDefault();
-    
+
     const inputValue = document.querySelector("#post-value");
     const value = inputValue.value;
     const dataToPost = validatePost(value);
@@ -210,16 +241,11 @@ export const newPostHandler = (event) => {
     return dataToPost;
 }
 
-export const initNewPostHandler = () => {
-
-    const postButton = document.querySelector("#create-new-post");
-    postButton.addEventListener("click", newPostHandler)
-}
-
 export const createFeedList = (posts) => {
 
     root.innerHTML = "";
     root.appendChild(postList);
+    postList.innerHTML="";
 
     createNewPostButton();
 
@@ -245,20 +271,11 @@ export const createFeedList = (posts) => {
 
     const createButton = document.querySelector("#create-post-button");
     createButton.addEventListener("click", activateModal);
-
-    // const deleteButton = document.querySelector(".delete-button");
-    // deleteButton.addEventListener("click", deleteHandler);
 }
-
-// export const initDeleteHandler = () => {
-
-//     const deleteButton = document.querySelector(".delete-button");
-//     deleteButton.addEventListener("click", deleteHandler);
-// }
 
 export const filterTextPost = () => {
 
-    createFilterMenu()
+    createFilterMenu();
 
     const posts = JSON.parse(localStorage.getItem("posts"));
     let filteredPosts = [];
@@ -270,7 +287,8 @@ export const filterTextPost = () => {
         const postLi = document.createElement("li");
         postLi.setAttribute("class", "container feed-post text-post");
         postLi.innerHTML = `
-            <div class="container" post-id=${post.id}>    
+            <div class="container" post-id=${post.id}> 
+            <input type="button" post-id=${post.id} class="delete-button" value="delete" id="${loggedUser.id === post.userId ? "" : "hide"}" />    
                 <div class="row" user-id=${post.userId}>
                     <div class="post-content">
                         ${post.text}
@@ -306,6 +324,7 @@ export const filterVideoPost = () => {
         postLi.setAttribute("class", "container feed-post video-post");
         postLi.innerHTML = `
         <div class="container" post-id=${post.id}>
+        <input type="button" post-id=${post.id} class="delete-button" value="delete" id="${loggedUser.id === post.userId ? "" : "hide"}" /> 
             <div class="row" user-id=${post.userId}>
                 <div class="video-content">
                     <iframe width='100%' height='300' src=${post.videoUrl} frameBorder="0" allow="autoplay; encrypted-media" allowFullScreen></iframe>
@@ -341,6 +360,7 @@ export const filterImagePost = () => {
         postLi.setAttribute("class", "container feed-post image-post");
         postLi.innerHTML = `
     <div class="container feed-image-post" post-id=${post.id}>
+    <input type="button" post-id=${post.id} class="delete-button" value="delete" id="${loggedUser.id === post.userId ? "" : "hide"}" /> 
         <div class="post-content" user-id=${post.userId}>
             <img src=${post.imageUrl} alt=${post.type} class="feed-img" />
         </div>

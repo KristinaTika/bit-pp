@@ -19,11 +19,25 @@ const initLoginPage = () => {
 
 const initLoginForm = () => {
 
+    const enterLoginButton = document.querySelector("#login-password");
+    enterLoginButton.addEventListener("keyup", enterLoginHandler);
+
     const loginButton = document.querySelector(".login-button");
     loginButton.addEventListener("click", loginHandler);
 
+
     const registerButton = document.querySelector(".register-button");
     registerButton.addEventListener("click", registerHandler);
+
+    const enterRegisterButton = document.querySelector("#register-password");
+    enterRegisterButton.addEventListener("keyup", enterRegisterHandler);
+}
+
+const enterRegisterHandler = (event) => {
+
+    if (event.keyCode === 13) {
+        registerHandler(event);
+    }
 }
 
 const registerHandler = (event) => {
@@ -32,7 +46,22 @@ const registerHandler = (event) => {
 
     data.registerUser(registerData)
         .then((response) => {
-            response === true ? initAfterRegister() : "";
+            return response.json();
+        })
+        .then(response => {
+            if (response.error) {
+                alert(response.error.message);
+            } else {
+                const header = document.querySelector("#welcome-header");
+                console.log(header);
+
+                if (header === null) {
+                    log.createLoginHeader();
+                    initAfterRegister();
+                } else {
+                    initAfterRegister();
+                }
+            }
         })
 }
 
@@ -41,32 +70,40 @@ const initAfterRegister = () => {
     setTimeout(initLoginForm, 1000);
 }
 
+const enterLoginHandler = (event) => {
+
+    if (event.keyCode === 13) {
+        loginHandler(event);
+    }
+}
+
 const loginHandler = (event) => {
 
     const loginData = log.loginHandler(event);
 
     data.loginUser(loginData)
         .then((response) => {
-            console.log(response);
-            response === true ? initPage() : "";
+            return response.json()
         })
-        //     if (response.error) {
-        //         alert(response.error.message)
-        //     } else if (!this.state.error) {
-        //         localStorage.setItem('sessionId', response.sessionId);
-        //         this.props.onSuccessfulLogin();
-        //     }
-        // })
-        // .then(() => {
-        //     userService.fetchProfile()
-        //         .then((response) => {
-        //             window.localStorage.setItem("userId", response.userId);
-        //         })
-        // })
-
+        .then(response => {
+            if (response.error) {
+                alert(response.error.message);
+            }
+            else if (!response.error) {
+                localStorage.setItem('sessionId', response.sessionId);
+                initPage();
+            }
+        })
 }
 
 const initPage = () => {
+
+    data.getProfile()
+        .then((profile) => {
+            localStorage.setItem("user-id", profile.id);
+            localStorage.setItem("user-profile", JSON.stringify(profile));
+        })
+
     createHeader();
     createFeedPage();
     initUsersPage();
@@ -79,13 +116,13 @@ const createFeedPage = () => {
 
     data.getPosts()
         .then((posts) => {
-            localStorage.setItem("posts", JSON.stringify(posts));
             feedPage.createFeedList(posts);
-            initDeleteOption()
+            localStorage.setItem("posts", JSON.stringify(posts));
+            initDeleteOption();
         });
 
-    setTimeout(initFilterMenu, 1000)
-    setTimeout(initHandlerNewPost, 1000)
+    setTimeout(initFilterMenu, 2000)
+    setTimeout(initHandlerNewPost, 2000)
 
     const logouts = document.querySelectorAll(".logout");
     logouts.forEach((logout) => {
@@ -97,6 +134,11 @@ const logoutHandler = (event) => {
 
     const header = document.querySelector(".header");
     header.style.display = "none";
+
+    const search = document.querySelector(".search-users");
+    if (search) {
+        search.style.display = "none";
+    }
 
     initLoginPage();
 }
@@ -113,8 +155,17 @@ const handlerNewPost = (event) => {
 
     data.createNewPost(dataToPost.type, dataToPost)
         .then((response) => {
-            initPage()
-        })
+            console.log(response);
+            bla();
+        });
+}
+
+const bla = () => {
+    createFeedPage();
+            initUsersPage();
+            initFeedPage();
+            setTimeout(initSinglePostPage, 1000);
+            initProfilePage();
 }
 
 const deleteHandler = (event) => {
@@ -123,7 +174,7 @@ const deleteHandler = (event) => {
 
     data.deletePost(postId)
         .then((response) => {
-            console.log(response);
+            bla();
         });
 }
 
@@ -145,6 +196,7 @@ const filPostsHandler = (event) => {
 
     feedPage.filterPostsHandler(event);
     initSinglePostPage();
+    initDeleteOption();
 }
 
 const initFeedPage = (event) => {
@@ -156,6 +208,7 @@ const initFeedPage = (event) => {
 }
 
 const feedPageHandler = (event) => {
+
     const inputField = document.querySelector(".search-users");
     if (inputField) {
         inputField.setAttribute("class", "hide");
@@ -301,11 +354,11 @@ const profilePageHandler = (event) => {
 
     data.getProfile()
         .then((profile) => {
-            localStorage.setItem("profile", JSON.stringify(profile))
+            localStorage.setItem("user-id", profile.id);
+            localStorage.setItem("user-profile", JSON.stringify(profile));
             createMyProfilePage(profile);
-        });
-
-    setTimeout(initProfileModal, 1000)
+            setTimeout(initProfileModal, 1000)
+        })
 }
 
 const initProfilePage = () => {
@@ -316,6 +369,7 @@ const initProfilePage = () => {
 }
 
 const updateProfileHandler = (event) => {
+
     const dataToUpdate = updProfileHandler(event);
 
     data.updateProfile(dataToUpdate)
@@ -329,11 +383,8 @@ const initProfileModal = () => {
     update.addEventListener("click", updateProfileHandler);
 }
 
-
-
 export const init = () => {
 
     initLoginPage();
     createFooter();
-
 }

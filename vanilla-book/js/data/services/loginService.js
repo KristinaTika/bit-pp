@@ -5,16 +5,16 @@ class LoginService {
 
     loginUser(data) {
         return post(loginEndpoint, data)
-            .then((response) => {
-                return response.status === 200 ? true : false
-            })
+            // .then((response) => {
+            //     return response.status === 200 ? true : false
+            // })
     }
 
     registerUser(data) {
         return post(registerEndpoint, data)
-            .then((response) => {
-                return response.status === 200 ? true : false
-            })
+            // .then((response) => {
+            //     return response.status === 200 ? true : false
+            // })
            
     }
 }

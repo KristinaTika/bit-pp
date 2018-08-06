@@ -5,9 +5,9 @@ export const getHeaders = () => {
         'Key': 'bitbookdev',
     }
 
-    // if (localStorage.getItem("sessionId")) {
-    //     requestsHeader['SessionId'] = localStorage.getItem("sessionId");
-    // }
+    if (localStorage.getItem("sessionId")) {
+        requestsHeader['SessionId'] = localStorage.getItem("sessionId");
+    }
 
     return requestsHeader;
 }
@@ -16,11 +16,7 @@ export const get = (url) => {
 
     return fetch(url, {
 
-        headers: {
-            'sessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE',
-            'Key': 'bitbookdev',
-        },
-        method: 'GET'
+        headers: getHeaders(),
     })
         .then(response => {
            return response.json()
@@ -32,13 +28,9 @@ export const post = (url, newContent) => {
     const postData = {
         method: 'POST',
         body: JSON.stringify(newContent),
-        headers: {
-            'Content-Type': 'application/json',
-            'sessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE',
-            'Key': 'bitbookdev',
-        },
+        headers: getHeaders(),
     }
-    return fetch(url, postData);
+    return fetch(url, postData)
 }
 
 export const put = (url, data) => {
@@ -47,11 +39,7 @@ export const put = (url, data) => {
 
         method: 'PUT',
         body: JSON.stringify(data),
-        headers: {
-            'Content-Type': 'application/json',
-            'sessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE',
-            'Key': 'bitbookdev',
-        },
+        headers: getHeaders(),
     })
 
 }
@@ -61,11 +49,7 @@ export const deleteData = (url) => {
     return fetch(url, {
 
         method: 'DELETE',
-        headers: {
-            'Content-Type': 'application/json',
-            'sessionId': '2990B489-DB94-4AC1-ACDE-CDC9CC3EAEAE',
-            'Key': 'bitbookdev',
-        },
+        headers: getHeaders(),
     })
 }
 
