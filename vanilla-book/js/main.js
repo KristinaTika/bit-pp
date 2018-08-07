@@ -1,11 +1,5 @@
-import { createHeader } from "./ui/partials/Header.js";
 import * as data from "./data/data.js";
-import * as feedPage from "./ui/feedPage/FeedList.js";
-import { createSinglePost, handlerComments } from "./ui/feedPage/SinglePost.js";
-import { createUsersList, goToUserProfile } from "./ui/peoplePage/UsersList.js";
-import { createFooter } from "./ui/partials/Footer.js";
-import { createMyProfilePage, updProfileHandler } from "./ui/profilePage/MyProfile.js";
-import * as log from "./ui/loginPage/loginPage.js";
+import * as ui from "./ui/ui.js";
 
 const myUsers = [];
 const myPosts = [];
@@ -20,8 +14,8 @@ const filterMyPosts = (posts, postId) => {
 
 const initLoginPage = () => {
 
-    log.createLoginHeader();
-    log.loginPage();
+    ui.createLoginHeader();
+    ui.createLoginPage();
     setTimeout(initLoginForm, 1000);
 }
 
@@ -50,7 +44,7 @@ const enterRegisterHandler = (event) => {
 
 const registerHandler = (event) => {
 
-    const registerData = log.registerHandler(event);
+    const registerData = ui.registerHandler(event);
 
     data.registerUser(registerData)
         .then((response) => {
@@ -62,7 +56,7 @@ const registerHandler = (event) => {
             } else {
                 const header = document.querySelector("#welcome-header");
                 if (header === null) {
-                    log.createLoginHeader();
+                    ui.createLoginHeader();
                     initAfterRegister();
                 } else {
                     initAfterRegister();
@@ -72,7 +66,7 @@ const registerHandler = (event) => {
 }
 
 const initAfterRegister = () => {
-    log.loginPage();
+    ui.loginPage();
     setTimeout(initLoginForm, 1000);
 }
 
@@ -85,7 +79,7 @@ const enterLoginHandler = (event) => {
 
 const loginHandler = (event) => {
 
-    const loginData = log.loginHandler(event);
+    const loginData = ui.loginHandler(event);
 
     data.loginUser(loginData)
         .then((response) => {
@@ -110,7 +104,7 @@ const initPage = () => {
             localStorage.setItem("user-profile", JSON.stringify(profile));
         })
 
-    createHeader();
+    ui.displayHeader();
     createFeedPage();
     initUsersPage();
     initFeedPage();
@@ -122,7 +116,7 @@ const createFeedPage = () => {
 
     data.getPosts()
         .then((posts) => {
-            feedPage.createFeedList(posts);
+            ui.createFeedList(posts);
             addLikeListener();
             posts.forEach((post) => {
                 myPosts.push(post);
@@ -153,10 +147,10 @@ const likesHandler = (event) => {
 }
 
 const infiniteAddLikes = () => {
-    feedPage.createFeedList(myPosts);
+    ui.createFeedList(myPosts);
     // createFeedPage();
     addLikeListener();
-    itSinglePostPage();
+    initSinglePostPage();
     initHandlerNewPost();
 }
 
@@ -188,7 +182,7 @@ const initHandlerNewPost = () => {
 
 const handlerNewPost = (event) => {
 
-    const dataToPost = feedPage.newPostHandler(event);
+    const dataToPost = ui.newPostHandler(event);
 
     data.createNewPost(dataToPost.type, dataToPost)
         .then((response) => {
@@ -206,7 +200,7 @@ const bla = () => {
 
 const deleteHandler = (event) => {
 
-    const postId = feedPage.deleteHandler(event);
+    const postId = ui.deleteHandler(event);
 
     data.deletePost(postId)
         .then((response) => {
@@ -232,7 +226,7 @@ const initFilterMenu = () => {
 
 const filPostsHandler = (event) => {
 
-    feedPage.filterPostsHandler(event);
+    ui.filterPostsHandler(event);
     initSinglePostPage();
     initDeleteOption();
 }
@@ -256,7 +250,7 @@ const feedPageHandler = (event) => {
 
 const displayUsersList = (users) => {
 
-    createUsersList(users);
+    ui.createUsersList(users);
     const search = document.querySelector(".search-users");
     search.addEventListener("keyup", filterUsers);
     initGoToUserProfilePage();
@@ -274,7 +268,7 @@ const goToUserProfileHandler = (event) => {
 
     data.getSingleUser(userId)
         .then((user) => {
-            goToUserProfile(user);
+            ui.goToUserProfile(user);
         });
 }
 
@@ -298,7 +292,7 @@ const filterUsers = (event) => {
         return userName.includes(event.target.value);
     });
 
-    createUsersList(filterUsers);
+    ui.createUsersList(filterUsers);
 }
 
 const createUserPage = (event) => {
@@ -332,50 +326,50 @@ const singlePostHandler = (event) => {
             localStorage.setItem("post", JSON.stringify(post));
             getCommentsHandler(post);
         });
-
-    setTimeout(postNewSingleComment, 1000);
 }
 
 const getCommentsHandler = (post) => {
 
     data.getComments(post.id)
         .then((comments) => {
-            if (comments) {
-                createSinglePost(post);
+            if (comments.length == 0) {
+                const comments1 = []
+                ui.createSinglePost(post, comments1);
+                addNewCommentListener();
+            } else {
+                comments.forEach((comment) => {
+                    data.getSingleUser(comment.authorId)
+                        .then((user) => {
+                            localStorage.setItem("user", JSON.stringify(user));
+                            ui.createSinglePost(post, comments);
+                            addNewCommentListener();
+                        });
+                });
             }
-            localStorage.setItem("comments", JSON.stringify(comments));
-            comments.forEach((comment) => {
-                data.getSingleUser(comment.authorId)
-                    .then((user) => {
-                        localStorage.setItem("user", JSON.stringify(user));
-                        createSinglePost(post);
-                        postNewSingleComment();
-                    });
-            });
         });
 }
 
-const postCommentHandler = (event) => {
+const newCommentHandler = (event) => {
 
-    const obj = handlerComments(event);
+    const obj = ui.handlerComments(event);
 
-    data.postNewComment(obj.post)
+    data.postNewComment(obj.newComment)
         .then((response) => {
-            newCommentHandler(obj.singlePost)
+            repeatNewCommentHandler(obj.post)
         });
 }
 
-const newCommentHandler = (postId) => {
+const repeatNewCommentHandler = (postId) => {
     getCommentsHandler(postId);
 }
 
-const postNewSingleComment = () => {
+const addNewCommentListener = () => {
 
     const inputValue = document.querySelector(".comment-button");
-    inputValue.addEventListener("click", postCommentHandler);
+    inputValue.addEventListener("click", newCommentHandler);
 }
 
-const initSinglePostPage = (event) => {
+const initSinglePostPage = () => {
 
     const feedPost = document.querySelectorAll(".post-event");
     feedPost.forEach((singlePost) => {
@@ -394,7 +388,7 @@ const profilePageHandler = (event) => {
         .then((profile) => {
             localStorage.setItem("user-id", profile.id);
             localStorage.setItem("user-profile", JSON.stringify(profile));
-            createMyProfilePage(profile);
+            ui.createMyProfilePage(profile);
             setTimeout(initProfileModal, 1000)
         })
 }
@@ -408,7 +402,7 @@ const initProfilePage = () => {
 
 const updateProfileHandler = (event) => {
 
-    const dataToUpdate = updProfileHandler(event);
+    const dataToUpdate = ui.updateProfileHandler(event);
 
     data.updateProfile(dataToUpdate)
         .then((response) => {
@@ -424,5 +418,5 @@ const initProfileModal = () => {
 export const init = () => {
 
     initLoginPage();
-    createFooter();
+    ui.displayFooter();
 }

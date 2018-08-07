@@ -17,7 +17,7 @@ const createTextPost = (post) => {
             </div>
         </div>
         <div class="post-info">
-            <span class="comments-color" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
+            <span class="post-event comments-color" post-id=${post.id} post-type=${post.type} user-id=${post.userId}> 
                 ${post.commentsNum} comments 
             </span>
             <span class="post-type"> 

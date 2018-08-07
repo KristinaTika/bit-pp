@@ -1,6 +1,6 @@
 const root = document.querySelector(".root");
 
-const createSingleTextPost = (post, user) => {
+const createSingleTextPost = (post, comments) => {
 
     const singlePost = document.createElement("div");
     singlePost.setAttribute("id", "text");
@@ -17,9 +17,7 @@ const createSingleTextPost = (post, user) => {
     `;
     root.appendChild(singlePost);
 
-    const comments = JSON.parse(localStorage.getItem("comments"));
-
-    if (!comments) {
+    if (comments.length === 0) {
         createButtons(singlePost);
     } else {
         createButtons(singlePost);
@@ -27,7 +25,7 @@ const createSingleTextPost = (post, user) => {
     }
 }
 
-const createSingleVideoPost = (post, user) => {
+const createSingleVideoPost = (post, comments) => {
 
     const singlePost = document.createElement("div");
     singlePost.setAttribute("id", "video");
@@ -43,9 +41,7 @@ const createSingleVideoPost = (post, user) => {
     `;
     root.appendChild(singlePost);
 
-    const comments = JSON.parse(localStorage.getItem("comments"));
-
-    if (!comments) {
+    if (comments.length === 0) {
         createButtons(singlePost);
     } else {
         createButtons(singlePost);
@@ -53,7 +49,7 @@ const createSingleVideoPost = (post, user) => {
     }
 }
 
-const createSingleImagePost = (post, user) => {
+const createSingleImagePost = (post, comments) => {
 
     const singlePost = document.createElement("div");
     singlePost.setAttribute("id", "image");
@@ -69,9 +65,7 @@ const createSingleImagePost = (post, user) => {
     `;
     root.appendChild(singlePost);
 
-    const comments = JSON.parse(localStorage.getItem("comments"));
-
-    if (!comments) {
+    if (comments.length === 0) {
         createButtons(singlePost);
     } else {
         createButtons(singlePost);
@@ -126,17 +120,17 @@ const collectCommentInput = () => {
     return input;
 }
 
-export const createSinglePost = (post) => {
+export const createSinglePost = (post, comments) => {
 
     root.innerHTML = "";
 
     switch (post.type) {
         case "text":
-            return createSingleTextPost(post);
+            return createSingleTextPost(post, comments);
         case "video":
-            return createSingleVideoPost(post);
+            return createSingleVideoPost(post, comments);
         case "image":
-            return createSingleImagePost(post);
+            return createSingleImagePost(post, comments);
         default:
             console.log("no post to show.");
     }
@@ -157,12 +151,12 @@ export const handlerComments = (event) => {
     if (inputValue === "") {
         return;
     } else {
-        const singlePost = JSON.parse(localStorage.getItem("post"));
+        const post = JSON.parse(localStorage.getItem("post"));
         const loggedUser = JSON.parse(localStorage.getItem("user"));
-        const userId = singlePost.userId;
-        const postId = singlePost.id;
+        const userId = post.userId;
+        const postId = post.id;
 
-        const post = {
+        const newComment = {
             id: "1",
             dateCreated: Date.now,
             body: inputValue,
@@ -172,8 +166,8 @@ export const handlerComments = (event) => {
         }
 
         return {
-            post,
-            singlePost
+            newComment,
+            post
         }
     }
 
