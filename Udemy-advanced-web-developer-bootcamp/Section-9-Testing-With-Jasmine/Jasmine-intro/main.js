@@ -10,3 +10,4 @@ describe("Earth", () => {
         expect(earth.numberFromSun).toBe(3)
     });
 });
+
