@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.2.0/css/all.css" integrity="sha384-hWVjflwFxL6sNzntih27bfxkr27PmbbK/iSvJ+a4+0owXq79v+lsFkW54bOGbiDQ"
         crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/css/materialize.min.css">
     <link rel="stylesheet" href="./assets/css/style.css">
     <title>Comfort MG</title>
 </head>
@@ -16,73 +17,26 @@
         <h2>
             <a href="#">Comfort MG</a>
         </h2>
-        <nav>
-            <li>
-                <a href="#">Početna</a>
-            </li>
-            <li>
-                <a href="#"> Nameštaj</a>
-            </li>
-            <li>
-                <a href="#"> Akcija</a>
-            </li>
-            <li>
-                <a href="#"> O nama</a>
-            </li>
-            <li>
-                <a href="#">Kontakt</a>
-            </li>
-        </nav>
-    </header>
-
-    <section class="slogan">
-        <div class="background-image" style="background-image: url(assets/images/main.jpg);"></div>
-        <div class="slogan-content-area">
-            <p>Salon nameštaja</p>
-            <h1>Comfort MG</h1>
-            <p>Izrada elemenata po želji i meri!</p>
-        </div>
-    </section>
-
-    <section class="contact">
-        <ul class="grid">
-            <li>
-                <h3>Radno vreme</h3>
-            </li>
-            <li>Leti:</li>
-            <li>Ponedeljak - petak: 8:00 - 20:00h</li>
-            <li>Subota: 8:00 - 17:00h</li>
-            <li>Zimi:</li>
-            <li>Ponedeljak - petak: 8:00 - 19:00h</li>
-            <li>Subota: 8:00 - 16:00h</li>
-        </ul>
-
         <ul>
             <li>
-                <h3>Adresa</h3>
+                <a href="#" class="home-page">Početna</a>
             </li>
             <li>
-                <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2832.9625749349807!2d19.681688715955318!3d44.76117797909896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x475bcaf878441d99%3A0x87ae94c11fe80ce1!2zTWHEjXZhbnNrYSA3NywgxaBhYmFjIDE1MDAw!5e0!3m2!1sen!2srs!4v1534759055307"
-                    width="220" height="220" frameborder="0" style="border:0" allowfullscreen></iframe>
+                <a href="#" class="furniture-page"> Nameštaj</a>
+            </li>
+            <li>
+                <a href="#" class="action-page"> Akcija</a>
+            </li>
+            <li>
+                <a href="#" class="about-page"> O nama</a>
+            </li>
+            <li>
+                <a href="#" class="contact-page">Kontakt</a>
             </li>
         </ul>
+    </header>
 
-        <div class="grid" id="info">
-            <h3>Kontakt</h3>
-            <ul class="telefon">
-                <li>Tel: 065/ 5255 - 864</li>
-                <li>Tel: 065/ 2032 - 026</li>
-
-                <li>Email: comfortmg@outlook.com</li>
-                <li>
-                    <p>Pronađite nas na društvenim mrežama</p>
-                    <i class="fab fa-facebook fa-2x"></i>
-                    <i class="fab fa-instagram fa-2x"></i>
-                </li>
-            </ul>
-        </div>
-        </div>
-    </section>
+    <main class="root"></main>
 
     <footer>
         <div>
@@ -91,7 +45,12 @@
             </p>
         </div>
     </footer>
-    <script type="module"></script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0-rc.2/js/materialize.min.js"></script>
+    <script type="module">
+        import { init } from "./js/main.js";
+        init();
+    </script>
 </body>
 
 </html>
