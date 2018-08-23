@@ -6,11 +6,11 @@ export const renderHomePage = () => {
     const home = document.createElement("div");
     home.innerHTML = `
     <section class="slogan">
-    <div class="background-image" style="background-image: url(assets/images/main.jpg);"></div>
+    <div class="background-image" style="background-image: url(assets/images/krevet.jpeg);"></div>
     <div class="slogan-content-area">
         <p>Salon nameštaja</p>
         <h1>Comfort MG</h1>
-        <p>Izrada elemenata po želji i meri!</p>
+        <p>Za udobniji život - nameštaj Comfort MG</p>
     </div>
 </section>
 
@@ -57,6 +57,69 @@ export const renderHomePage = () => {
     container.appendChild(home);
 }
 
+export const renderFurnitureMenu = () => {
+
+    container.innerHTML = "";
+
+    const menu = document.createElement("div");
+    menu.setAttribute("class", "furniture-menu");
+    menu.innerHTML = `
+    <ul class="list-one">
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="decije-sobe furniture-photo">
+            </div>
+            <span class="decije-sobe">Dečije sobe</span>
+        </li>
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="dnevne-sobe furniture-photo">
+            </div>
+            <span class="dnevne-sobe">Dnevne sobe</span>
+        </li>
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/sto.jpg"class="klub-stolovi furniture-photo">
+            </div>
+            <span class="klub-stolovi">Klub stolovi</span>
+        </li>
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="kreveti-masiv furniture-photo">
+            </div>
+            <span class="kreveti-masiv">Kreveti od masiva</span>
+        </li>
+    </ul>
+    <ul class="list-two">
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="kuhinje furniture-photo">
+            </div>
+            <span class="kuhinje">Kuhinje</span>
+        </li>
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="ormari furniture-photo">
+            </div>
+            <span class="ormari">Ormari</span>
+        </li>
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/polica.jpg"class="police furniture-photo">
+            </div>
+            <span class="police">Police</span>
+        </li>
+        <li class="furniture">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="predsoblja furniture-photo">
+            </div>
+            <span class="predsoblja">Predsoblja</span>
+        </li>
+    </ul>
+    `;
+    container.appendChild(menu);
+}
+
 export const renderAction = () => {
 
     container.innerHTML = "";
@@ -64,13 +127,23 @@ export const renderAction = () => {
     action.setAttribute("class", "action-btn");
     action.innerHTML = `
     <h5>Proizvodi na akciji:</h5>   
-    <div class="carousel">
-        <a class="carousel-item sale-photo" href="#one!"><img src="../assets/images/action1.jpg" class="a1" dimenzije="500x400" cena="19999 din" opis-proizvoda="fdsfdsfdssfdsdfsfdfds"></a>
-        <a class="carousel-item sale-photo" href="#two!"><img src="../assets/images/action2.jpg"></a>
-        <a class="carousel-item sale-photo" href="#three!"><img src="../assets/images/action3.jpg"></a>
-        <a class="carousel-item sale-photo" href="#four!"><img src="../assets/images/action4.jpg"></a>
-        <a class="carousel-item sale-photo" href="#five!"><img src="../assets/images/action5.jpg"></a>
-    </div>
+    <ul class="sale-list">
+        <li class="sale-photo">
+            <img src="../assets/images/action1.jpg" class="a1" dimenzije="500x400" cena="19999 din" opis-proizvoda="fdsfdsfdssfdsdfsfdfds">
+            <h5>Stara cena:3902903 maraka</h5>
+            <h4>Nova cena:1 marka</h4>
+        </li>
+        <li class="sale-photo">
+            <img src="../assets/images/action2.jpg">
+            <h5>Stara cena:3902903 maraka</h5>
+            <h4>Nova cena:1 marka</h4>
+        </li>
+        <li class="sale-photo">
+            <img src="../assets/images/action4.jpg">
+            <h5>Stara cena:3902903 maraka</h5>
+            <h4>Nova cena:1 marka</h4>
+        </li>
+    </ul>
     `;
     container.appendChild(action);
 
@@ -97,20 +170,19 @@ export const renderActionPhoto = (event) => {
 
     const singlePhoto = document.createElement("div");
     singlePhoto.innerHTML= `
-    <a href="#" class="back-to-action"><i class="fas fa-angle-double-left "></i>Nazad na akciju</a>
-    <div>
-        <img src="${product.photoUrl}" alt="Slika proizvoda">
-    </div>
-    <p>
-        Dimenzije: ${product.dimensions}
-    </p>
-    <p>
-        Cena: ${product.price}
-    </p>
-    <p>
-        ${product.summary}
-    </p>
-
+        <a href="#" class="back-to-action"><i class="fas fa-angle-double-left "></i>Nazad na akciju</a>
+        <div>
+            <img src="${product.photoUrl}" alt="Slika proizvoda">
+        </div>
+        <p>
+            Dimenzije: ${product.dimensions}
+        </p>
+        <p>
+            Cena: ${product.price}
+        </p>
+        <p>
+            ${product.summary}
+        </p>
     `;
     container.appendChild(singlePhoto);
 }
@@ -120,7 +192,7 @@ export const renderAbout = () => {
     container.innerHTML = "";
     const about = document.createElement("div");
     about.innerHTML = `
-    <h2>Salon nameštaja Comfort MG</h2>
+    <h2 id="about-title">Salon nameštaja Comfort MG</h2>
     <p>
         Nakon dugogodišnjeg iskustva i rada odlučili smo da 11.3.2017. pokrenemo nešto novo u gradu, tada je zvanično otvoren salon nameštaja Comfort MG. 
         Bavimo se izradom pločastog nameštaja od iverice i medijapana po meri i želji kupaca. U našoj ponudi možete pronaći kuhinje, ormare, predsoblja, dnevne sobe, regale i još mnogo toga. Kod nas ćete dobiti 3D prikaz i idejno rešenje za Vaš dom. Od projektovanja do izrade i montaže elemenata, sve to Vam nudimo potpuno besplatno ukoliko odlučite da sarađujete sa nama. 
@@ -172,4 +244,401 @@ export const renderContact = () => {
     </form>
     `;
     container.appendChild(contact);
+}
+
+export const renderKidsRoom = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.setAttribute("class","kids-room-list")
+    kidsList.innerHTML = `
+
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+
+   
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+  
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderLivingRoom = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderClubTables = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderBed = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderKitchen = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderCloset = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderShelves = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
+}
+
+export const renderHallway = () => {
+    
+    container.innerHTML = "";
+    const kidsList = document.createElement("ul");
+    kidsList.innerHTML = `
+        <li class="ds1">
+            <div>
+                <img src="../assets/images/decijasoba.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds2">
+            <div>
+                <img src="../assets/images/dnevna-soba.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds3">
+            <div>
+                <img src="../assets/images/sto.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds4">
+            <div>
+                <img src="../assets/images/krevet.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds5">
+            <div>
+                <img src="../assets/images/kuhinja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds6">
+            <div>
+                <img src="../assets/images/ormar.jpeg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds7">
+            <div>
+                <img src="../assets/images/polica.jpg"class="furniture-photo">
+            </div>
+        </li>
+        <li class="ds8">
+            <div>
+                <img src="../assets/images/predsoblja.jpeg"class="furniture-photo">
+            </div>
+        </li>
+    `;
+    container.appendChild(kidsList);
 }

@@ -28,15 +28,15 @@ nav, ul {
 
 a {
     text-decoration: none;
-    font-size: 30px;
+    font-size: 25px;
     opacity: 0.75;
     color: #95a5a6;
-    border-bottom: 1px solid #8c99e6;
     transition: color 0.5s ease-out;
 }
 
 a:hover {
     opacity: 1;
+    border-bottom: 1px solid #8c99e6;
 }
 
 section {
@@ -47,7 +47,7 @@ section {
 }
 
 .hide {
-    visibility: hidden;
+    display: none;
 }
 
 .show {
@@ -62,9 +62,9 @@ header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    animation: 1s headerFadeIn 0.7s forwards;
+    animation: 1s headerFadeIn 0.5s forwards;
     opacity: 0;
-    padding: 20px 10px;
+    padding: 10px 5px;
 }
 
 @keyframes headerFadeIn {
@@ -83,9 +83,51 @@ header ul li {
     margin: 0 10px;
 }
 
+header h2 {
+    margin: 0px;
+    margin-left:30px;
+}
+
 header h2 a {
     border: none;
     font-size: 40px;
+}
+
+.furniture-menu {
+    margin: 50px;
+    display: flex;
+    flex-direction: column;
+}
+
+.list-one, .list-two {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.list-one {
+    margin-top: 20px;
+}
+
+.list-one li, .list-two li {
+    height: 300px;
+    width: 300px;
+    overflow: hidden;
+    text-align: center;
+}
+
+ul li .furniture-photo {
+    width: 250px;
+    height: 250px;
+    border-radius: 30px;
+    opacity: 0.8;
+}
+
+ul li:hover .furniture-photo {
+    opacity: 1;   
 }
 
 @media screen and (max-width: 900px) {
@@ -93,9 +135,11 @@ header h2 a {
     header {
         padding-top: 10px;
         flex-direction: column;
+        text-align: center;
     }
 
     header h2 {
+        margin: 0px;
         margin-bottom: 10px;
     }
 
@@ -278,9 +322,45 @@ footer div {
 
 /*Action style */
 
-.action-photo {
-    height: 500px;
-    width: 500px;
+.action-btn {
+    text-align: center;
+}
+
+.action-btn h5 {
+    margin: 50px;
+}
+
+.sale-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    flex-wrap: wrap;
+}
+
+.sale-list li {
+    margin-bottom: 10px;
+}
+
+.sale-list li img {
+    height: 350px;
+    width: 350px;
+    border-radius: 10px;
+    opacity: 0.7;
+}
+
+.sale-list li img:hover {
+    opacity: 1;
+}
+
+.sale-list li h5 {
+    text-decoration: line-through;
+}
+
+/* About styles */
+
+#about-title {
+    text-align: center;
+    margin-bottom: 50px;
 }
 
 /* Contact Styles */
@@ -295,4 +375,24 @@ footer div {
     flex-direction: row;
     justify-content: space-around;
     margin-top: 50px;
+}
+
+/* Furniture Styles */
+
+.kids-room-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    margin-top:40px;
+}
+
+.kids-room-list li {
+    height: 300px;
+    width: 300px;
+    opacity: 0.9;
+}
+
+.kids-room-list li:hover {
+    opacity: 1;
 }
