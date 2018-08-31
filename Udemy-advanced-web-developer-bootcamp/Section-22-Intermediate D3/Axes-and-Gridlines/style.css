@@ -1,9 +1,0 @@
-svg {
-    margin: 0 auto;
-    display: block;
-}
-
-.tick line {
-  stroke: #ccc;
-  stroke-dasharray: 10, 5;  /* takes 2 numbers - 1)the length of the dash and 2) the distance between dashes */
-}
