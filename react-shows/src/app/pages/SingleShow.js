@@ -22,22 +22,26 @@ class SingleShow extends Component {
 
         const { cast, image, name, seasons, summary, site } = this.state.show;
 
-        let crew = <div className="loader">
-        <div className="stick1"></div>
-        <div className="stick2"></div>
-        <div className="stick3"></div>
-        <div className="stick4"></div>
-       </div>;;
+        let crew = 
+        <div className="loader">
+            <div className="stick1"></div>
+            <div className="stick2"></div>
+            <div className="stick3"></div>
+            <div className="stick4"></div>
+        </div>;
+
         if (cast && cast.length > 0) {
             crew = cast.map((s, i) => <Cast actor={s.person.name} character={s.character.name} key={i} />
         )};
     
-        let ses = <div className="loader">
-        <div className="stick1"></div>
-        <div className="stick2"></div>
-        <div className="stick3"></div>
-        <div className="stick4"></div>
-       </div>;;
+        let ses = 
+        <div className="loader">
+            <div className="stick1"></div>
+            <div className="stick2"></div>
+            <div className="stick3"></div>
+            <div className="stick4"></div>
+        </div>
+        
         if (seasons && seasons.length > 0) {
             ses = seasons.map((s, i) => 
             <Seasons

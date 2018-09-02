@@ -27,6 +27,11 @@
     justify-content: space-evenly;
 }
 
+.cast-seasons-container ol {
+    padding: 0;
+    margin: 0;
+}
+
 #sum {
     padding: 40px 0;
     margin: 0 40px;

@@ -27,12 +27,14 @@ class TVShows extends Component {
     render() {
         const { shows } = this.state;
 
-        let displayShows = <div className="loader">
-                            <div className="stick1"></div>
-                            <div className="stick2"></div>
-                            <div className="stick3"></div>
-                            <div className="stick4"></div>
-                           </div>;
+        let displayShows = 
+            <div className="loader">
+                <div className="stick1"></div>
+                <div className="stick2"></div>
+                <div className="stick3"></div>
+                <div className="stick4"></div>
+            </div>;
+            
         if (shows && shows.length > 0) {
             displayShows = shows.map((s, i) => <ShowItem key={i} show={s} />)
         }
